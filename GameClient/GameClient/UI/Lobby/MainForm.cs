@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -65,8 +66,8 @@ namespace GameClient
         }
         public void LogInHandler(object sender, EventArgs e)
         {
-            List<string> info = sender as List<string>;
-            this.Text = info[0];
+           
+            this.Text = (sender as string);
             lst_clients.Enabled = true;
             btn_refresh.Enabled = true;
             btn_invite.Enabled = true;
@@ -91,8 +92,9 @@ namespace GameClient
 
         public void RefreshClientsHandler(object sender, EventArgs e)
         {
-            List<string> info = sender as List<string>;
-            string[] clients = info.ToArray<string>();
+         //   List<string> info = sender as List<string>;
+            object[] clients = JsonConvert.DeserializeObject<object[]>(sender.ToString());
+            //string[] clients = json. info.ToArray<sender as string>();
             lst_clients.Items.Clear();
             lst_clients.Items.AddRange(clients);
         }
@@ -100,15 +102,15 @@ namespace GameClient
         void ShowNotificationHandler(object sender, EventArgs e)
         {
             this.Enabled = false;
-            List<string> info = sender as List<string>;
-            MessageBox.Show(info[0]);
+            
+            MessageBox.Show(sender as string);
             this.Enabled = true;
         }
         private void btn_invite_Click(object sender, EventArgs e)
         {
             if (lst_clients.SelectedItem != null)
             {
-                handShake.SendInvite(lst_clients.SelectedItem.ToString(), comboBox1.SelectedItem.ToString());
+                handShake.SendInvite(new object[] { lst_clients.SelectedItem.ToString(), comboBox1.SelectedItem.ToString() });
                 
             }
         }
@@ -130,8 +132,8 @@ namespace GameClient
         private void AnswerFormHandler(object sender, EventArgs e)
         {
             this.Enabled = false;
-            List<string> message = sender as List<string>;
-            AnswerForm answerForm = new AnswerForm(handShake, message);
+            
+            AnswerForm answerForm = new AnswerForm(handShake, sender);
             answerForm.FormClosed += CloseFormHandler;
             answerForm.ShowDialog();
         }
