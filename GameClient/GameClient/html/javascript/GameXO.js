@@ -55,18 +55,9 @@ function Lobby(response)
         case "refreshClients":
             if (response.Args.length > 0)
             {
-                //for(var i=0; i<response.Message.length; i++)
-                //{
-                //    var addOpt = new Option(response.Message[i], response.Message[i]);
-                //    document.getElementById("clients").options[clientsCount++] = addOpt;
-                //}
-
                 playersList.innerHTML = "";
                 var personlist = new Array(response.Args);
-                for (var i = 0; i < personlist[0].length; i++) {
-                    //if (Message[i] === userName.value) {
-                    //    continue;
-                    //}
+                for (var i = 0; i < personlist[0].length; i++) {                  
                     playersList.innerHTML += "<input type='radio' name='players' id='" + personlist[0][i] + "' />" + personlist[0][i] + "<br />";
                 }
             }

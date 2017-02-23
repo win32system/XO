@@ -31,7 +31,7 @@ namespace GameServer
                     Invite(client, arg[0].ToString(), arg[0].ToString());
                     break;
                 case "Ok":
-                    Start(client, arg[0].ToString(),arg[1].ToString());
+                    Start(client, arg[1].ToString(),arg[2].ToString());
                     break;
                 case "Cancle":
                     Cancle(client, arg[0].ToString());
