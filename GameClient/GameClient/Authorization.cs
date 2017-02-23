@@ -12,7 +12,7 @@ namespace GameClient
     {
         public Client client;
         Info info;
-        //11
+        
         public EventHandler LogIn;
 
         public Authorization(Client client)
