@@ -26,8 +26,12 @@ function OnInvite() {
     ws.send(JSON.stringify(req));   
 }
 
-function goPlaying() {
-    var player = GetSelectedPlayer();
-    var req = new Request("HandShake", "Ok", new Array(player, document.getElementById("textLogin").value, "XO"));
+function goPlaying(play) {
+    var req = new Request("HandShake", "Ok", new Array(play[0], "XO"));
+    ws.send(JSON.stringify(req));
+}
+
+function move() {
+    var req = new Request("Game", "Move", new Array(play[0], "XO"));
     ws.send(JSON.stringify(req));
 }

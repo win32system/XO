@@ -28,10 +28,10 @@ namespace GameServer
             switch (info.Cmd)
             {
                 case "Invite":
-                    Invite(client, arg[0].ToString(), arg[0].ToString());
+                    Invite(client, arg[0].ToString(), arg[1].ToString());
                     break;
                 case "Ok":
-                    Start(client, arg[1].ToString(),arg[2].ToString());
+                    Start(client, arg[0].ToString(),arg[1].ToString());
                     break;
                 case "Cancle":
                     Cancle(client, arg[0].ToString());

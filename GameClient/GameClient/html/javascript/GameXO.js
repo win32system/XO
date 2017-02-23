@@ -15,6 +15,10 @@ function listener(response)
         case "HandShake":
             HandShake(req);
             break;
+        case "Game":
+            Game(req);
+            break;
+            
 
     }
 }
@@ -25,7 +29,7 @@ function HandShake(response) {
         case "Invited":
             var r = confirm("User" + response.Args + "wants to play with you");
             if (r == true) {
-                goPlaying();
+                goPlaying(response.Args);
             } else {
                
             }
@@ -37,12 +41,28 @@ function HandShake(response) {
     }
 }
 
+function Game(response)
+{
+    switch (response.Cmd) {
+        case "Over":
+           
+            break;
+        case "X":
+
+            break;
+        case "O":
+
+            break;
+
+    }
+}
+
 function Authorization(response)
 {
     switch(response.Cmd)
     {
         case "LogIn":
-            document.getElementById("label").innerHTML = response.Args;
+            document.getElementById("label").innerHTML ="Your name: " + response.Args;
             ShowLobby();
             break;
     }
