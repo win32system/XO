@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="05f9756a-5200-403a-a9d0-4de1452fb8df" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameClient/GameClient/html/javascript/GameXO.js" afterPath="$PROJECT_DIR$/GameClient/GameClient/html/javascript/GameXO.js" />
-    </list>
+    <list default="true" id="05f9756a-5200-403a-a9d0-4de1452fb8df" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -298,12 +296,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1487849553512</updated>
-      <workItem from="1487849555873" duration="2186000" />
+      <workItem from="1487849555873" duration="2715000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2186000" />
+    <option name="totallyTimeSpent" value="2715000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
