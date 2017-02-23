@@ -1,5 +1,6 @@
 
 //playersList = document.getElementById("playersList");
+var playerMove;
 
 function listener(response)
 {
@@ -44,14 +45,15 @@ function HandShake(response) {
 function Game(response)
 {
     switch (response.Cmd) {
+        case "Start":
+            ShowGame();
+            break;
+
         case "Over":
            
             break;
-        case "X":
-
-            break;
-        case "O":
-
+        case "Move":
+            this.playerMove = response.Args;
             break;
 
     }
@@ -107,4 +109,52 @@ function GetSelectedPlayer() {
         }
     }
 }
+
+function OnButtonClicked(coord) {
+    
+    switch(coord)
+    {
+        case 1:
+            move(new Array(playerMove, 0, 0));
+            b1.innerHTML = playerMove;
+            break;
+        case 2:
+            move(new Array(playerMove, 1, 0));
+            b2.innerHTML = playerMove;
+            break;
+        case 3:
+            move(new Array(playerMove, 2, 0));
+            b3.innerHTML = playerMove;
+            break;
+        case 4:
+            move(new Array(playerMove, 1, 0));
+            b4.innerHTML = playerMove;
+            break;
+        case 5:
+            move(new Array(playerMove, 1, 1));
+            b4.innerHTML = playerMove;
+            break;
+        case 6:
+            move(new Array(playerMove, 1, 2));
+            b5.innerHTML = playerMove;
+            break;
+        case 7:
+            move(new Array(playerMove, 2, 0));
+            b7.innerHTML = playerMove;
+            break;
+        case 8:
+            move(new Array(playerMove, 2, 1));
+            b8.innerHTML = playerMove;
+            break;
+        case 9:
+            move(new Array(playerMove, 2, 2));
+            b9.innerHTML = playerMove;
+            break;
+        default:
+            return;
+    }
+    
+
+}
+
 

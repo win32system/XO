@@ -6,6 +6,12 @@ function login()
         );
     ws.send(JSON.stringify(req));
 }
+
+function logout() {
+    var req = new Request("Auth", "LogOut", document.getElementById("textLogin").value);
+    ws.send(JSON.stringify(req));
+    ShowAuth();
+}
 function registr()
 {
     var req = new Request("Auth", "Registration", new Array(
@@ -31,7 +37,7 @@ function goPlaying(play) {
     ws.send(JSON.stringify(req));
 }
 
-function move() {
-    var req = new Request("Game", "Move", new Array(play[0], "XO"));
+function move(args) {
+    var req = new Request("Game", "Move", args);
     ws.send(JSON.stringify(req));
 }
