@@ -10,12 +10,12 @@ namespace GameServer
     {
         public string name;
         public string password;
-        public int type;
-        public User(string name, string password /*, int type*/)
+       
+        public User(string name, string password)
         {
             this.name = name;
             this.password = password;
-            //this.type = type; 
+          
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,21 +16,23 @@ namespace GameServer
             this.rooms = rooms;
         }
 
-        public void Dispacher(Client client, Info info)
+        public void Dispacher(Client client, RequestObject info)
         {
-            int index = Convert.ToInt32(info.Message[0]);
+            object[] args = JsonConvert.DeserializeObject<object[]>(info.Args.ToString());
+            int index = Convert.ToInt32(args[0]);
             Room room = rooms.rooms[index];
-            switch(info.Command)
+            switch(info.Cmd)
             {
                 case "Move":
-                    Move(room, client, info.Message);
+                    Move(room, client, info.Args);
                     break;
             }
             
         }
-        void Move(Room room, Client client, List<string> message)
+        void Move(Room room, Client client, object args)
         {
-            room.Move(client.name, message);
+
+            room.Move(client.name, args.ToString());
 
             if (room.IsOver())
             {

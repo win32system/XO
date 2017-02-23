@@ -12,28 +12,29 @@ namespace GameServer
     {
         Clients clients;
         Rooms rooms;
-        Info info;
+        RequestObject info;
 
         public HandShake(Clients clients, Rooms rooms)
         {
             this.clients = clients;
             this.rooms = rooms;
-            info = new Info();
+            info = new RequestObject();
             info.Module = "HandShake";
         }
 
-        public void Dispacher(Client client, Info info)
+        public void Dispacher(Client client, RequestObject args)
         {
-            switch (info.Command)
+            object[] arg = JsonConvert.DeserializeObject<object[]>(args.ToString());
+            switch (info.Cmd)
             {
                 case "Invite":
-                    Invite(client, info.Message[0], info.Message[1]);
+                    Invite(client, arg[0].ToString(), arg[0].ToString());
                     break;
                 case "Ok":
-                    Start(client, info.Message[0], info.Message[1]);
+                    Start(client, arg[0].ToString(),arg[1].ToString());
                     break;
                 case "Cancle":
-                    Cancle(client, info.Message[0]);
+                    Cancle(client, arg[0].ToString());
                     break;
             }
         }
@@ -65,14 +66,13 @@ namespace GameServer
                 return;
             }
             clientinvited.isBusy = true;
-            info.Command = "Invited";
-            info.Message.Clear();
-            info.Message.Add(clientcreator.name);
-            info.Message.Add(gameName);
+            info.Cmd = "Invited";
+            info.Args = new object[] { clientcreator.name, gameName };
+            
             string strInfo = JsonConvert.SerializeObject(info);
             clientinvited.Write(strInfo);
 
-            info.Command = "Wait";
+            info.Cmd = "Wait";
             strInfo = JsonConvert.SerializeObject(info);
             clientcreator.Write(strInfo);
         }
@@ -89,10 +89,9 @@ namespace GameServer
             for(int i=0; i<tmpclients.Count; i++)
             {
                 info.Module = "Game";
-                info.Command = "Start";
-                info.Message.Clear();
-                info.Message.Add("" + (rooms.rooms.Count-1));
-                info.Message.Add(gameName);
+                info.Cmd = "Start";
+                info.Args = new object[] {rooms.rooms.Count - 1, gameName };
+             
                 string strInfo = JsonConvert.SerializeObject(info);
                 tmpclients[i].Write(strInfo);
             }
@@ -104,7 +103,7 @@ namespace GameServer
             creator.isBusy = false;
             invitedClient.isBusy = false;
 
-            info.Command = "Cancle";
+            info.Cmd = "Cancle";
             string strInfo = JsonConvert.SerializeObject(info);
             creator.Write(strInfo);
         }

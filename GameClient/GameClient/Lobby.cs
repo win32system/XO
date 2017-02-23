@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GameServer;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,11 +12,11 @@ namespace GameClient
     class Lobby
     {
         Client client;
-        Info info;
+        RequestObject info;
         public Lobby(Client client)
         {
             this.client = client;
-            info = new Info();
+            info = new RequestObject();
             info.Module = "Lobby";
         }
         
@@ -23,22 +24,22 @@ namespace GameClient
 
         public EventHandler Notification;
 
-        public void Dispacher(Info tmpinfo)
+        public void Dispacher(RequestObject tmpinfo)
         {
-            switch (tmpinfo.Command)
+            switch (tmpinfo.Cmd)
             {
                 case "refreshClients":
-                    RefreshClients(tmpinfo.Message, null);
+                    RefreshClients(tmpinfo.Args, null);
                     break;
                 case "Notification":
-                    Notification(tmpinfo.Message, null);
+                    Notification(tmpinfo.Args, null);
                     break;
             }
         }
 
         public void SendRefreshClients(object sender, EventArgs e)
         {
-            info.Command = "refreshClients";
+            info.Cmd = "refreshClients";
             string strInfo = JsonConvert.SerializeObject(info);
             StreamWriter writer = new StreamWriter(client.netstream);
             writer.WriteLine(strInfo);

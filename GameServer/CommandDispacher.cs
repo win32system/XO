@@ -34,10 +34,11 @@ namespace GameServer
                     if (clients.clientsList[i].netStream.DataAvailable)
                     {
                         string message = clients.clientsList[i].Read();
-                        Info info = new Info();
+
+                        RequestObject info = new RequestObject();
                         try
                         {
-                            info = JsonConvert.DeserializeObject<Info>(message);
+                            info = JsonConvert.DeserializeObject<RequestObject>(message);
                         }
                         catch (Exception)
                         {

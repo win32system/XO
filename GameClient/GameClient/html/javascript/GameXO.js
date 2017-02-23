@@ -14,30 +14,30 @@ function listener(response)
 
 function Authorization(response)
 {
-    switch(response.Command)
+    switch(response.Cmd)
     {
         case "LogIn":
-            document.getElementById("label").innerHTML=response.Message[0];
+            document.getElementById("label").innerHTML = response.Args[0];
             break;
     }
 
 }
 function Lobby(response)
 {
-    switch(response.Command)
+    switch (response.Cmd)
     {
         case "refreshClients":
-            if(response.Message.length>0)
+            if (response.Args.length > 0)
             {
-                for(var i=0; i<response.Message.length; i++)
+                for (var i = 0; i < response.Args.length; i++)
                 {
-                    var addOpt = new Option(response.Message[i], response.Message[i]);
+                    var addOpt = new Option(response.Args[i], response.Args[i]);
                     document.getElementById("clients").options[clientsCount++] = addOpt;
                 }
             }
             break;
         case "Notification":
-            alert(response.Message[0]);
+            alert(response.Args);
             break;
     }
 }

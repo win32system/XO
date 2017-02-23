@@ -9,7 +9,7 @@ namespace GameServer
     interface IGame
     {
         bool IsTurn(string name);
-        string Move(List<string> message);
+        string Move(object message);
         bool IsOver();
     }
 }

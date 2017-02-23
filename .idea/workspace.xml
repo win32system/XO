@@ -2,14 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05f9756a-5200-403a-a9d0-4de1452fb8df" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/GameClient/GameClient/html/javascript/Request.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModelingProject1/ModelDefinition/ModelingProject1.uml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModelingProject1/ModelingProject1.modelproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModelingProject1/UMLClassDiagram1.classdiagram" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModelingProject1/UMLClassDiagram1.classdiagram.layout" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/GameClient/GameClient/html/GameXO.js" afterPath="$PROJECT_DIR$/GameClient/GameClient/html/javascript/GameXO.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameClient/GameClient/html/Main Window XO.html" afterPath="$PROJECT_DIR$/GameClient/GameClient/html/Main Window XO.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/GameClient/GameClient/Info.cs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/GameServer/Authorization.cs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/GameServer/Info.cs" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameClient/GameClient/API/Game.cs" afterPath="$PROJECT_DIR$/GameClient/GameClient/API/Game.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameClient/GameClient/API/Listener.cs" afterPath="$PROJECT_DIR$/GameClient/GameClient/API/Listener.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameClient/GameClient/Authorization.cs" afterPath="$PROJECT_DIR$/GameClient/GameClient/Authorization.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameClient/GameClient/GameClient.csproj" afterPath="$PROJECT_DIR$/GameClient/GameClient/GameClient.csproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameClient/GameClient/HandShake.cs" afterPath="$PROJECT_DIR$/GameClient/GameClient/HandShake.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameClient/GameClient/Lobby.cs" afterPath="$PROJECT_DIR$/GameClient/GameClient/Lobby.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameClient/GameClient/UI/Game/RoomDialog.cs" afterPath="$PROJECT_DIR$/GameClient/GameClient/UI/Game/RoomDialog.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameClient/GameClient/html/javascript/connection.js" afterPath="$PROJECT_DIR$/GameClient/GameClient/html/javascript/connection.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameServer.sln" afterPath="$PROJECT_DIR$/GameServer.sln" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameServer/CommandDispacher.cs" afterPath="$PROJECT_DIR$/GameServer/CommandDispacher.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameServer/Connection/Client.cs" afterPath="$PROJECT_DIR$/GameServer/Connection/Client.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameServer/Game/Game.cs" afterPath="$PROJECT_DIR$/GameServer/Game/Game.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameServer/Game/IGame.cs" afterPath="$PROJECT_DIR$/GameServer/Game/IGame.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameServer/Game/Room.cs" afterPath="$PROJECT_DIR$/GameServer/Game/Room.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameServer/Game/XO.cs" afterPath="$PROJECT_DIR$/GameServer/Game/XO.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameServer/GameServer.csproj" afterPath="$PROJECT_DIR$/GameServer/GameServer.csproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameServer/Lobby.cs" afterPath="$PROJECT_DIR$/GameServer/Lobby.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameServer/Session/HandShake.cs" afterPath="$PROJECT_DIR$/GameServer/Session/HandShake.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameServer/User.cs" afterPath="$PROJECT_DIR$/GameServer/User.cs" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,11 +41,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GameXO.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameXO.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GameClient/GameClient/html/javascript/GameXO.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="663">
-              <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+              <caret line="39" column="13" lean-forward="false" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -47,10 +61,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main Window XO.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main Window XO.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GameClient/GameClient/html/Main Window XO.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="627">
+            <state relative-caret-position="646">
               <caret line="38" column="36" lean-forward="false" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
               <folding />
             </state>
@@ -303,12 +317,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1487849553512</updated>
-      <workItem from="1487849555873" duration="1175000" />
+      <workItem from="1487849555873" duration="2048000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1175000" />
+    <option name="totallyTimeSpent" value="2048000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -344,14 +358,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/GameClient/GameClient/html/Main Window XO.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="38" column="36" lean-forward="false" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GameClient/GameClient/html/javascript/connection.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -371,7 +377,15 @@
     <entry file="file://$PROJECT_DIR$/GameClient/GameClient/html/javascript/GameXO.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
-          <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+          <caret line="39" column="13" lean-forward="false" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GameClient/GameClient/html/Main Window XO.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="38" column="36" lean-forward="false" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
           <folding />
         </state>
       </provider>
