@@ -23,7 +23,7 @@ function listener(response)
 function HandShake(response) {
     switch (response.Command) {
         case "Invited":
-            var r = confirm("User" + response.Message[0] + "wants to play with you");
+            var r = confirm("User" + response.Args[0] + "wants to play with you");
             if (r == true) {
                 goPlaying();
             } else {
@@ -32,7 +32,7 @@ function HandShake(response) {
          
             break;
         case "Wait":
-            alert(response.Message[0]);
+            alert(response.Args[0]);
             break;
     }
 }
@@ -42,7 +42,7 @@ function Authorization(response)
     switch(response.Command)
     {
         case "LogIn":
-            document.getElementById("label").innerHTML = response.Message[0];
+            document.getElementById("label").innerHTML = response.Args[0];
             ShowLobby();
             break;
     }
@@ -53,7 +53,7 @@ function Lobby(response)
     switch(response.Command)
     {
         case "refreshClients":
-            if(response.Message.length>0)
+            if (response.Args.length > 0)
             {
                 //for(var i=0; i<response.Message.length; i++)
                 //{
@@ -63,16 +63,16 @@ function Lobby(response)
 
                 playersList.innerHTML = "";
 
-                for (var i = 0; i < response.Message.length; i++) {
+                for (var i = 0; i < response.Args.length; i++) {
                     //if (Message[i] === userName.value) {
                     //    continue;
                     //}
-                    playersList.innerHTML += "<input type='radio' name='players' id='" + response.Message[i] + "' />" + response.Message[i] + "<br />";
+                    playersList.innerHTML += "<input type='radio' name='players' id='" + response.Args[i] + "' />" + response.Args[i] + "<br />";
                 }
             }
             break;
         case "Notification":
-            alert(response.Message[0]);
+            alert(response.Args[0]);
             break;
     }
 }

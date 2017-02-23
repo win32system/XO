@@ -127,7 +127,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="html\javascript\Gui.js" />
     <Content Include="html\javascript\connection.js" />
     <Content Include="html\javascript\GameXO.js" />
     <Content Include="html\javascript\Request.js" />
