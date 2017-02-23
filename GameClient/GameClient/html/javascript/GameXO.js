@@ -1,17 +1,3 @@
-
-    var ws = new WebSocket("ws://localhost:8888");
-    var clientsCount=0;
-    var roomsCount=0;
-    ws.onopen = function () {
-    };
-    ws.onmessage = function (evt) {
-        listener(evt.data);
-    };
-    ws.onclose = function () {
-        alert("Connection is closed...");
-    };
-
-
 function listener(response)
 {
     var req=new Request();
@@ -62,11 +48,7 @@ function Lobby(response)
     }
 }
 
-function Request(Module,Command,Message) {
-    this.Module=Module;
-    this.Command=Command;
-    this.Message=Message;
-}
+
 function login()
 {
     var req=new Request("Auth","LogIn",new Array(document.getElementById("textLogin").value,document.getElementById("textPassword").value));
