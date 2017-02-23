@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameServer", "GameServer\GameServer.csproj", "{1BEC9F6E-BE3F-4C3B-BC7B-B83747A76BD1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6F25B384-E232-4E9F-959C-0EA204986B49} = {6F25B384-E232-4E9F-959C-0EA204986B49}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "html", "html", "{5A061546-18E2-470A-AC9D-CEFD0C6D07F6}"
+	ProjectSection(SolutionItems) = preProject
+		..\html\GameXO.js = ..\html\GameXO.js
+		..\html\Main Window XO.html = ..\html\Main Window XO.html
+		..\html\style.css = ..\html\style.css
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameClient", "GameClient\GameClient\GameClient.csproj", "{6F25B384-E232-4E9F-959C-0EA204986B49}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BEC9F6E-BE3F-4C3B-BC7B-B83747A76BD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BEC9F6E-BE3F-4C3B-BC7B-B83747A76BD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BEC9F6E-BE3F-4C3B-BC7B-B83747A76BD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BEC9F6E-BE3F-4C3B-BC7B-B83747A76BD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F25B384-E232-4E9F-959C-0EA204986B49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F25B384-E232-4E9F-959C-0EA204986B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F25B384-E232-4E9F-959C-0EA204986B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F25B384-E232-4E9F-959C-0EA204986B49}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

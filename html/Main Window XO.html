@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>   
+    <head>
+        <meta charset="utf-8" >
+        <title>Main Window XO</title>
+        <link type="text/css" rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+    <div class="auth">
+        <div class="wrapper">
+	        <label>Login</label>
+	        <input type="text" id="textLogin"/><br/>
+
+            <label>Password</label>
+	        <input type="text" size="20" maxlength="50" id="textPassword"/><br/>
+
+	        <label id="label">E-mail</label>
+	        <input type="text" name="text1" size="20" maxlength="70"/><br>
+
+            <input type="button"   value="Log in" id="btnLogIn" onclick="login()"/><br>
+            <input type="button"   value="Registration" id="btnReg" onclick="registr()" /><br>
+
+
+        </div>
+    </div>
+    <div class="Lobby">
+        <div id = "playersList" class = "Players"> </div>
+
+        <input type="button" id="btnRefresh" value="Refresh">
+        <input type="button" name="btnInvite" value="Invite">
+    </div>
+    <div class="Room">
+
+    </div>
+    </body>
+</html>
+
+<script src="GameXO.js" ></script>
