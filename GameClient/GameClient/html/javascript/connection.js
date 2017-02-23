@@ -13,8 +13,8 @@ window.onload = function () {
 
     ShowAuth();
 };
-function Request(Module,Command,Message) {
+function Request(Module,Cmd,Args) {
     this.Module=Module;
-    this.Command=Command;
-    this.Message=Message;
+    this.Cmd=Cmd;
+    this.Args = Args;
 }

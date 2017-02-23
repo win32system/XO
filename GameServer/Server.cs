@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class Server
+    public class Server
     {
-        TcpListener server;
-        Clients clients;
+        TcpListener server { get; set; }
+        Clients clients { get; set; }
       
         public Server()
         {

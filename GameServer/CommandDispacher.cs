@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class CommandDispacher
+    public class CommandDispacher
     {
-        Clients clients;
-        Rooms rooms;
-        Game game;
+        private Clients clients { get; set; }
+        Rooms rooms { get; set; }
+        Game game { get; set; }
 
         public CommandDispacher(Clients clients)
         {
@@ -34,10 +34,11 @@ namespace GameServer
                     if (clients.clientsList[i].netStream.DataAvailable)
                     {
                         string message = clients.clientsList[i].Read();
-                        Info info = new Info();
+
+                        RequestObject info = new RequestObject();
                         try
                         {
-                            info = JsonConvert.DeserializeObject<Info>(message);
+                            info = JsonConvert.DeserializeObject<RequestObject>(message);
                         }
                         catch (Exception)
                         {

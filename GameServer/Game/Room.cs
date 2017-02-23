@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class Room
+    public class Room
     {
         IGame game;
         public List<Client> clients;
@@ -27,11 +27,11 @@ namespace GameServer
             }
         }
 
-        public void Move(string senderName, List<string> message)
+        public void Move(string senderName, object message)
         {
             if (game.IsTurn(senderName))
             {
-                string messageToSend = game.Move(message);
+                string messageToSend = game.Move(message.ToString());
                 if(messageToSend!=null)
                 {
                     for(int i=0; i<clients.Count; i++)
@@ -49,9 +49,9 @@ namespace GameServer
                 {
                     clients[i].inGame = false;
                     clients[i].isBusy = false;
-                    Info info = new Info();
+                    RequestObject info = new RequestObject();
                     info.Module = "Game";
-                    info.Command = "Over";
+                    info.Cmd = "Over";
                     string strInfo = JsonConvert.SerializeObject(info);
                     clients[i].Write(strInfo);
                 }

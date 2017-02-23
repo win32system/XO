@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class Client
+    public class Client
     {
         public TcpClient client;
         public NetworkStream netStream;
@@ -35,8 +35,8 @@ namespace GameServer
             else
             {
                 byte[] response = Encoding.UTF8.GetBytes("  " + message);
-                response[0] = 0x81; // denotes this is the final message and it is in text
-                response[1] = Convert.ToByte(response.Length - 2); // payload size = message - header size
+                response[0] = 0x81; 
+                response[1] = Convert.ToByte(response.Length - 2); 
                 client.GetStream().Write(response, 0, response.Length);
             }
         }

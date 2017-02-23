@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,10 +31,11 @@ namespace GameClient
             this.Controls.Add(game);
         }
 
-        public void Draw(List<string> move)
+        public void Draw(object Args)
         {
+            object[] args = JsonConvert.DeserializeObject<object[]>(Args.ToString());
             if (game is XO)
-                (game as XO).Draw(move[0], move[1], move[2]);
+                (game as XO).Draw(args[0].ToString(), args[1].ToString(), args[2].ToString());
         }
 
         public void End()

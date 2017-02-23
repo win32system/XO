@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class XO:IGame
+    public class XO: IGame
     {
         string client1Name;
         string client2Name;
@@ -30,23 +30,21 @@ namespace GameServer
 
             return false;
         }
-        public string Move(List<string> message)
+        public string Move(object message)
         {
-            Info info = new Info();
-            info.Module = "Game";
-            info.Command = "Move";
-            info.Message.Add(message[1]);
-            info.Message.Add(message[2]);
+           
+            RequestObject info = new RequestObject("Game","Move", message);
 
-            int x = Convert.ToInt32(message[1]);
-            int y = Convert.ToInt32(message[2]);
+            object[] args = JsonConvert.DeserializeObject<object[]>(message.ToString());
+            int x = Convert.ToInt32(args[1]);
+            int y = Convert.ToInt32(args[2]);
             if (feild[x, y] == 0)
             {
                 if(turn==client1Name)
                 {
                     feild[x, y] = 1;
                     turn = client2Name;
-                    info.Message.Add("X");
+                    info.Args = "X";
                     string strInfo = JsonConvert.SerializeObject(info);
                     return strInfo;
                 }
@@ -54,7 +52,7 @@ namespace GameServer
                 {
                     feild[x, y] = -1;
                     turn = client1Name;
-                    info.Message.Add("O");
+                    info.Args = "O";
                     string strInfo = JsonConvert.SerializeObject(info);
                     return strInfo;
                 }

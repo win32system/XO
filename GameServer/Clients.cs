@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class Clients
+    public class Clients
     {
         public List<Client> clientsList;
         public Clients()

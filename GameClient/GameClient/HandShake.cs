@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GameServer;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +12,7 @@ namespace GameClient
     public class HandShake
     {
         Client client;
-        Info info;
+        RequestObject info;
 
         public EventHandler Answer;
         public EventHandler Cancle;
@@ -20,16 +21,16 @@ namespace GameClient
         public HandShake(Client client)
         {
             this.client = client;
-            info = new Info();
+            info = new RequestObject();
             info.Module = "HandShake";
         }
 
-        public void Dispacher(Info tmpinfo)
+        public void Dispacher(RequestObject tmpinfo)
         {
-            switch (tmpinfo.Command)
+            switch (tmpinfo.Cmd)
             {
                 case "Invited":
-                    Answer(tmpinfo.Message, null);
+                    Answer(tmpinfo.Args, null);
                     break;
                 case "Cancle":
                     Cancle(null, null);
@@ -42,10 +43,9 @@ namespace GameClient
 
         public void SendInvite(string userName, string gameName)
         {
-            info.Command = "Invite";
-            info.Message.Clear();
-            info.Message.Add(userName);
-            info.Message.Add(gameName);
+            info.Cmd = "Invite";
+            object[] arg = new object[] { userName, gameName };
+            
             string strInfo = JsonConvert.SerializeObject(info);
             StreamWriter writer = new StreamWriter(client.netstream);
             writer.WriteLine(strInfo);
@@ -53,10 +53,9 @@ namespace GameClient
         }
         public void SendOk(string userName, string gameName)
         {
-            info.Command = "Ok";
-            info.Message.Clear();
-            info.Message.Add(userName);
-            info.Message.Add(gameName);
+            info.Cmd = "Ok";
+            object[] arg = new object[] { userName, gameName };
+
             string strInfo = JsonConvert.SerializeObject(info);
             StreamWriter writer = new StreamWriter(client.netstream);
             writer.WriteLine(strInfo);
@@ -65,9 +64,9 @@ namespace GameClient
 
         public void SendCancle(string userName)
         {
-            info.Command = "Cancle";
-            info.Message.Clear();
-            info.Message.Add(userName);
+            info.Cmd = "Cancle";
+            object[] arg = new object[] { userName };
+            
             string strInfo = JsonConvert.SerializeObject(info);
             StreamWriter writer = new StreamWriter(client.netstream);
             writer.WriteLine(strInfo);

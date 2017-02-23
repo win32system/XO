@@ -60,7 +60,6 @@
     <Compile Include="API\Game.cs" />
     <Compile Include="Authorization.cs" />
     <Compile Include="HandShake.cs" />
-    <Compile Include="Info.cs" />
     <Compile Include="Lobby.cs" />
     <Compile Include="UI\Lobby\MainForm.cs">
       <SubType>Form</SubType>
@@ -135,6 +134,12 @@
     <Content Include="html\javascript\ShowModules.js" />
     <Content Include="html\Main Window XO.html" />
     <Content Include="html\style.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.csproj">
+      <Project>{0ee8b9a2-7341-4c15-9d4d-8c249e204ad2}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

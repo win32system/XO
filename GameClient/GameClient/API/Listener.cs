@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GameServer;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,7 +38,7 @@ namespace GameClient
                 StreamReader reader = new StreamReader(client.netstream);
                 string message = reader.ReadLine();
 
-                Info info = JsonConvert.DeserializeObject<Info>(message);
+                RequestObject info = JsonConvert.DeserializeObject<RequestObject>(message);
                 switch (info.Module)
                 {
                     case "Auth":
