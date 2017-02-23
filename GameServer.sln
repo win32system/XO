@@ -8,13 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameServer", "GameServer\Ga
 		{6F25B384-E232-4E9F-959C-0EA204986B49} = {6F25B384-E232-4E9F-959C-0EA204986B49}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "html", "html", "{5A061546-18E2-470A-AC9D-CEFD0C6D07F6}"
-	ProjectSection(SolutionItems) = preProject
-		..\html\GameXO.js = ..\html\GameXO.js
-		..\html\Main Window XO.html = ..\html\Main Window XO.html
-		..\html\style.css = ..\html\style.css
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameClient", "GameClient\GameClient\GameClient.csproj", "{6F25B384-E232-4E9F-959C-0EA204986B49}"
 EndProject
 Global
