@@ -63,11 +63,11 @@ function Lobby(response)
 
                 playersList.innerHTML = "";
                 var personlist = new Array(response.Args);
-                for (var i = 0; i < personlist.length; i++) {
+                for (var i = 0; i < personlist[0].length; i++) {
                     //if (Message[i] === userName.value) {
                     //    continue;
                     //}
-                    playersList.innerHTML += "<input type='radio' name='players' id='" + personlist[i] + "' />" + personlist[i] + "<br />";
+                    playersList.innerHTML += "<input type='radio' name='players' id='" + personlist[0][i] + "' />" + personlist[0][i] + "<br />";
                 }
             }
             break;

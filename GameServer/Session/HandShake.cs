@@ -22,9 +22,9 @@ namespace GameServer
             info.Module = "HandShake";
         }
 
-        public void Dispacher(Client client, RequestObject args)
+        public void Dispacher(Client client, RequestObject info)
         {
-            object[] arg = JsonConvert.DeserializeObject<object[]>(args.ToString());
+            object []arg = JsonConvert.DeserializeObject<object[]>(info.Args.ToString());
             switch (info.Cmd)
             {
                 case "Invite":
