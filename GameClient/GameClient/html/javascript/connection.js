@@ -10,6 +10,8 @@ window.onload = function () {
     ws.onclose = function () {
         alert("Connection is closed...");
     };
+
+    ShowAuth();
 };
 function Request(Module,Command,Message) {
     this.Module=Module;

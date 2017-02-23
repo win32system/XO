@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>   
     <head>
         <meta charset="utf-8" >
@@ -6,7 +6,7 @@
         <link type="text/css" rel="stylesheet" href="style.css" />
     </head>
     <body>
-    <div class="auth">
+    <div class="auth" id="auth">
         <div class="wrapper">
 	        <label>Login</label>
 	        <input type="text" id="textLogin"/><br/>
@@ -23,17 +23,22 @@
 
         </div>
     </div>
-    <div class="Lobby">
-        <div id = "playersList" class = "Players"> </div>
+    <div class="Lobby" id="lobby">
 
-        <input type="button" id="btnRefresh" value="Refresh">
-        <input type="button" name="btnInvite" value="Invite">
+        <div id = "playersList" class = "Lobby"> </div>
+        
+
+        <input type="button" id="btnRefresh" value="Refresh" onclick="clientsList()">
+        <input type="button" name="btnInvite" value="Invite" onclick="OnInvite()">
     </div>
-    <div class="Room">
+
+    <div class="Room" id="game">
 
     </div>
+
+        <script src="javascript/connection.js"></script>
+        <script src="javascript/GameXO.js"></script>
+        <script src="javascript/Request.js"></script>
+        <script src="javascript/ShowModules.js"></script>
     </body>
 </html>
-<script src="javascript/connection.js"></script>
-<script src="javascript/GameXO.js" ></script>
-<script src="javascript/Request.js"></script>

@@ -62,7 +62,7 @@ namespace GameServer
             users.Add(user);
             string strUsers = JsonConvert.SerializeObject(users);
             File.WriteAllText("Users.json", strUsers);
-            lobby.SendNotification("Вы зарегистрировались, теперь вы можете войти.", client);
+            lobby.SendNotification("Come in", client);
         }
         private void LogIn(Client client, List<string> message)
         {
