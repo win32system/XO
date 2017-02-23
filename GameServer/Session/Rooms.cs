@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class Rooms
+    public class Rooms
     {
         public List<Room> rooms;
 

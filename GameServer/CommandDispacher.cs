@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class CommandDispacher
+    public class CommandDispacher
     {
-        Clients clients;
-        Rooms rooms;
-        Game game;
+        private Clients clients { get; set; }
+        Rooms rooms { get; set; }
+        Game game { get; set; }
 
         public CommandDispacher(Clients clients)
         {

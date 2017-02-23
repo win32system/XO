@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class Room
+    public class Room
     {
         IGame game;
         public List<Client> clients;

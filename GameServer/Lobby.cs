@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class Lobby
+    public class Lobby
     {
         public void Dispacher(Client client, RequestObject info, List<Client> clientsList)
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class Client
+    public class Client
     {
         public TcpClient client;
         public NetworkStream netStream;

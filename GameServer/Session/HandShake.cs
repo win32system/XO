@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class HandShake
+    public class HandShake
     {
-        Clients clients;
-        Rooms rooms;
-        RequestObject info;
+        private Clients clients { get; set; }
+        Rooms rooms { get; set; }
+        RequestObject info { get; set; }
 
         public HandShake(Clients clients, Rooms rooms)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class XO: IGame
+    public class XO: IGame
     {
         string client1Name;
         string client2Name;

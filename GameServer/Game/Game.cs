@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class Game
+   public class Game
     {
         Rooms rooms;
 
