@@ -21,9 +21,9 @@ function listener(response)
 
 
 function HandShake(response) {
-    switch (response.Command) {
+    switch (response.Cmd) {
         case "Invited":
-            var r = confirm("User" + response.Args[0] + "wants to play with you");
+            var r = confirm("User" + response.Args + "wants to play with you");
             if (r == true) {
                 goPlaying();
             } else {
@@ -32,17 +32,17 @@ function HandShake(response) {
          
             break;
         case "Wait":
-            alert(response.Args[0]);
+            alert(response.Args);
             break;
     }
 }
 
 function Authorization(response)
 {
-    switch(response.Command)
+    switch(response.Cmd)
     {
         case "LogIn":
-            document.getElementById("label").innerHTML = response.Args[0];
+            document.getElementById("label").innerHTML = response.Args;
             ShowLobby();
             break;
     }
@@ -50,7 +50,7 @@ function Authorization(response)
 
 function Lobby(response)
 {
-    switch(response.Command)
+    switch(response.Cmd)
     {
         case "refreshClients":
             if (response.Args.length > 0)
@@ -62,17 +62,17 @@ function Lobby(response)
                 //}
 
                 playersList.innerHTML = "";
-
-                for (var i = 0; i < response.Args.length; i++) {
+                var personlist = new Array(response.Args);
+                for (var i = 0; i < personlist.length; i++) {
                     //if (Message[i] === userName.value) {
                     //    continue;
                     //}
-                    playersList.innerHTML += "<input type='radio' name='players' id='" + response.Args[i] + "' />" + response.Args[i] + "<br />";
+                    playersList.innerHTML += "<input type='radio' name='players' id='" + personlist[i] + "' />" + personlist[i] + "<br />";
                 }
             }
             break;
         case "Notification":
-            alert(response.Args[0]);
+            alert(response.Args);
             break;
     }
 }

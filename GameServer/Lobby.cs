@@ -21,15 +21,15 @@ namespace GameServer
         }
         public void SendClients(Client client, List<Client> clientsList)
         {
-            RequestObject info = new RequestObject("Lobby", "refreshClients",null);
+            List<string> str = new List<string>();
             foreach (var item in clientsList)
             {
-                if (item == client || item.name == ""||item.inGame)
+                if (item == client || item.name == "" || item.inGame==true || item.name==null)
                     continue;
-                info.Args = item.name;
+                 str.Add(item.name);
             }
-            string strInfo = JsonConvert.SerializeObject(info);
-            client.Write(strInfo);
+
+            client.Write(JsonConvert.SerializeObject(new RequestObject("Lobby", "refreshClients", str)));
         }
         public void SendNotification(string notification, Client client)
         {
