@@ -6,6 +6,12 @@ function login()
         );
     ws.send(JSON.stringify(req));
 }
+
+function logout() {
+    var req = new Request("Auth", "LogOut", document.getElementById("textLogin").value);
+    ws.send(JSON.stringify(req));
+    ShowAuth();
+}
 function registr()
 {
     var req = new Request("Auth", "Registration", new Array(
@@ -26,8 +32,12 @@ function OnInvite() {
     ws.send(JSON.stringify(req));   
 }
 
-function goPlaying() {
-    var player = GetSelectedPlayer();
-    var req = new Request("HandShake", "Ok", new Array(player, document.getElementById("textLogin").value, "XO"));
+function goPlaying(play) {
+    var req = new Request("HandShake", "Ok", new Array(play[0], "XO"));
+    ws.send(JSON.stringify(req));
+}
+
+function move(args) {
+    var req = new Request("Game", "Move", args);
     ws.send(JSON.stringify(req));
 }

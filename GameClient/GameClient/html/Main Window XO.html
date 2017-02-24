@@ -6,39 +6,55 @@
         <link type="text/css" rel="stylesheet" href="style.css" />
     </head>
     <body>
-    <div class="auth" id="auth">
-        <div class="wrapper">
-	        <label>Login</label>
-	        <input type="text" id="textLogin"/><br/>
 
-            <label>Password</label>
-	        <input type="text" size="20" maxlength="50" id="textPassword"/><br/>
+            <div class="auth" id="auth">
+                <div class="wrapper">
+                    <label>Login</label>
+                    <input type="text" id="textLogin" />
+                    <input type="button" value="Log in" id="btnLogIn" onclick="login()" /><br>
 
-	        <label id="label">E-mail</label>
-	        <input type="text" name="text1" size="20" maxlength="70"/><br>
+                    <label>Password</label>
+                    <input type="text" size="20" maxlength="50" id="textPassword" />
+                    <input type="button" value="Registration" id="btnReg" onclick="registr()" /><br>
 
-            <input type="button"   value="Log in" id="btnLogIn" onclick="login()"/><br>
-            <input type="button"   value="Registration" id="btnReg" onclick="registr()" /><br>
+                    <label>E-mail</label>
+                    <input type="text" name="text1" size="20" maxlength="70" /><br>
+                   
+                   
+                   
+                </div>
+            </div>
 
 
-        </div>
-    </div>
-    <div class="Lobby" id="lobby">
+            <div class="Lobby" id="lobby">
 
-        <div id = "playersList" class = "Lobby"> </div>
-        
+                <label id="label"></label> <br>
+                <div id="playersList" class="Lobby"> </div> <br>
 
-        <input type="button" id="btnRefresh" value="Refresh" onclick="clientsList()">
-        <input type="button" name="btnInvite" value="Invite" onclick="OnInvite()">
-    </div>
+                <input type="button" id="btnLogOut"  value="Log out"  onclick="logout()" >
+                <input type="button" id="btnRefresh" value="Refresh"  onclick="clientsList()">
+                <input type="button" id="btnInvite"  value="Invite"   onclick="OnInvite()">
+            </div>
 
-    <div class="Room" id="game">
+            <div class="Room" id="game">
+                <div>
+                    <input class="gameField" id="b1" type="button" onclick="OnButtonClicked(1)" />
+                    <input class="gameField" id="b2" type="button" onclick="OnButtonClicked(2)" />
+                    <input class="gameField" id="b3" type="button" onclick="OnButtonClicked(3)" /><br />
+                    <input class="gameField" id="b4" type="button" onclick="OnButtonClicked(4)" />
+                    <input class="gameField" id="b5" type="button" onclick="OnButtonClicked(5)" />
+                    <input class="gameField" id="b6" type="button" onclick="OnButtonClicked(6)" /><br />
+                    <input class="gameField" id="b7" type="button" onclick="OnButtonClicked(7)" />
+                    <input class="gameField" id="b8" type="button" onclick="OnButtonClicked(8)" />
+                    <input class="gameField" id="b9" type="button" onclick="OnButtonClicked(9)" />
 
-    </div>
+                </div>
+            </div>
 
-        <script src="javascript/connection.js"></script>
-        <script src="javascript/GameXO.js"></script>
-        <script src="javascript/Request.js"></script>
-        <script src="javascript/ShowModules.js"></script>
-    </body>
+            <script src="javascript/connection.js"></script>
+            <script src="javascript/GameXO.js"></script>
+            <script src="javascript/Request.js"></script>
+            <script src="javascript/ShowModules.js"></script>
+
+</body>
 </html>
