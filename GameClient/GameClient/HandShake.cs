@@ -12,7 +12,7 @@ namespace GameClient
     public class HandShake
     {
         Client client;
-        RequestObject info;
+      
 
         public EventHandler Answer;
         public EventHandler Cancle;
@@ -21,8 +21,7 @@ namespace GameClient
         public HandShake(Client client)
         {
             this.client = client;
-            info = new RequestObject();
-            info.Module = "HandShake";
+          
         }
 
         public void Dispacher(RequestObject tmpinfo)
@@ -40,37 +39,26 @@ namespace GameClient
                     break;
             }
         }
-
-        public void SendInvite(string userName, string gameName)
+        private void Send(RequestObject info)
         {
-            info.Cmd = "Invite";
-            object[] arg = new object[] { userName, gameName };
-            
-            string strInfo = JsonConvert.SerializeObject(info);
             StreamWriter writer = new StreamWriter(client.netstream);
-            writer.WriteLine(strInfo);
+            writer.WriteLine(JsonConvert.SerializeObject(info));
             writer.Flush();
+
         }
-        public void SendOk(string userName, string gameName)
+        public void SendInvite(object arg)
         {
-            info.Cmd = "Ok";
-            object[] arg = new object[] { userName, gameName };
-
-            string strInfo = JsonConvert.SerializeObject(info);
-            StreamWriter writer = new StreamWriter(client.netstream);
-            writer.WriteLine(strInfo);
-            writer.Flush();
+            Send(new RequestObject("HandShake", "Invite", arg)); 
+        }
+        public void SendOk(object arg)
+        {
+            Send(new RequestObject("HandShake", "Ok", arg));
+          
         }
 
-        public void SendCancle(string userName)
+        public void SendCancle(object arg)
         {
-            info.Cmd = "Cancle";
-            object[] arg = new object[] { userName };
-            
-            string strInfo = JsonConvert.SerializeObject(info);
-            StreamWriter writer = new StreamWriter(client.netstream);
-            writer.WriteLine(strInfo);
-            writer.Flush();
+            Send(new RequestObject("HandShake", "Cancle", arg));
         }
     }
 }

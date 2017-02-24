@@ -53,7 +53,7 @@ namespace GameClient
             object[] args = JsonConvert.DeserializeObject<object[]>(Args.ToString());
             this.gameIndex = args[0].ToString();
             roomdialog.Init(client, args[1].ToString());
-            if (roomdialog.game is XO)
+        
                 roomdialog.game.MouseDown += SendMoveXO;
             Thread open = new Thread(new ThreadStart(OpenForm));
             open.Start();
@@ -71,30 +71,15 @@ namespace GameClient
 
         private void SendMoveXO(object sender, MouseEventArgs e)
         {
-            string x = "";
-            string y = "";
-            if (e.X >= 70 && e.X <= 120)
-                y = "0";
-            if (e.X >= 120 && e.X <= 170)
-                y = "1";
-            if (e.X >= 170 && e.X <= 220)
-                y = "2";
-            if (e.Y >= 70 && e.Y <= 120)
-                x = "0";
-            if (e.Y >= 120 && e.Y <= 170)
-                x = "1";
-            if (e.Y >= 170 && e.Y <= 220)
-                x = "2";
-            if(x!="" && y!="")
-            {
-                info.Cmd = "Move";
-                object[] arg = new object[] { gameIndex, x, y };
-                
-                string strInfo = JsonConvert.SerializeObject(info);
-                StreamWriter writer = new StreamWriter(client.netstream);
-                writer.WriteLine(strInfo);
-                writer.Flush();
-            }
+            string str = (sender as Button).Tag.ToString();
+
+            if (str == "")
+                return;
+
+            RequestObject res = new RequestObject("Game", "Move", new object[] { gameIndex, str });
+            StreamWriter writer = new StreamWriter(client.netstream);
+            writer.WriteLine(JsonConvert.SerializeObject(res));
+            writer.Flush();
         }
 
         void OpenForm()
