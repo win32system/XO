@@ -90,7 +90,6 @@ namespace GameClient
             {
                 info.Cmd = "Move";
                 info.Args = new object[] { gameIndex, x, y };
-                
                 string strInfo = JsonConvert.SerializeObject(info);
                 StreamWriter writer = new StreamWriter(client.netstream);
                 writer.WriteLine(strInfo);

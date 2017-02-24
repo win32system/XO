@@ -34,7 +34,7 @@ namespace GameClient
         private void XO_MouseDown(object sender, MouseEventArgs e)
         {
         }
-        public void Draw(string x, string y, string figure)
+        public void Draw( string figure, string x, string y)
         {
             Graphics g = this.CreateGraphics();
             Pen pen = new Pen(Color.Black, 2);
