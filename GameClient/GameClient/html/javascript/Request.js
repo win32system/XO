@@ -41,3 +41,8 @@ function move(args) {
     var req = new Request("Game", "Move", args);
     ws.send(JSON.stringify(req));
 }
+
+function start(args) {
+    var req = new Request("Game", "Start", args);
+    ws.send(JSON.stringify(req));
+}
