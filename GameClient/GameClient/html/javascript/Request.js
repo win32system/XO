@@ -1,10 +1,16 @@
 function login()
 {
-    var req = new Request("Auth", "LogIn", new Array(
-        document.getElementById("textLogin").value,
-        document.getElementById("textPassword").value)
-        );
-    ws.send(JSON.stringify(req));
+    var login = document.getElementById("textLogin").value;
+    var password = document.getElementById("textPassword").value;
+
+    if (login != "" && password != "") {
+        var req = new Request("Auth", "LogIn", new Array(login, password))
+
+        ws.send(JSON.stringify(req))
+    }
+    else {
+        alert("Fill all fields!");
+    }
 }
 
 function logout() {

@@ -53,7 +53,7 @@ function Game(response)
             break;
 
         case "Over":
-           
+            ShowLobby();
             break;
         case "Move":
             moveBtn(response.Args);
