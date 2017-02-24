@@ -12,7 +12,8 @@ namespace GameClient
     public class HandShake
     {
         Client client;
-       
+        RequestObject info;
+
         public EventHandler Answer;
         public EventHandler Cancle;
         public EventHandler Wait;
@@ -20,6 +21,8 @@ namespace GameClient
         public HandShake(Client client)
         {
             this.client = client;
+            info = new RequestObject();
+            info.Module = "HandShake";
         }
 
         public void Dispacher(RequestObject tmpinfo)
@@ -37,25 +40,37 @@ namespace GameClient
                     break;
             }
         }
-        public void Send(string cmd, object args)
+
+        public void SendInvite(string userName, string gameName)
         {
+            info.Cmd = "Invite";
+            object[] arg = new object[] { userName, gameName };
+            
+            string strInfo = JsonConvert.SerializeObject(info);
             StreamWriter writer = new StreamWriter(client.netstream);
-            RequestObject info = new RequestObject("HandShake",cmd , args);
-            writer.WriteLine(JsonConvert.SerializeObject(info));
+            writer.WriteLine(strInfo);
             writer.Flush();
         }
-        public void SendInvite(object args)
+        public void SendOk(string userName, string gameName)
         {
-            Send("Invite", args);
-        }
-        public void SendOk(object args)
-        {
-            Send("Ok", args);
+            info.Cmd = "Ok";
+            object[] arg = new object[] { userName, gameName };
+
+            string strInfo = JsonConvert.SerializeObject(info);
+            StreamWriter writer = new StreamWriter(client.netstream);
+            writer.WriteLine(strInfo);
+            writer.Flush();
         }
 
-        public void SendCancle(object args)
+        public void SendCancle(string userName)
         {
-            Send("Cancle", args);
+            info.Cmd = "Cancle";
+            object[] arg = new object[] { userName };
+            
+            string strInfo = JsonConvert.SerializeObject(info);
+            StreamWriter writer = new StreamWriter(client.netstream);
+            writer.WriteLine(strInfo);
+            writer.Flush();
         }
     }
 }

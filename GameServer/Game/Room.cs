@@ -29,7 +29,8 @@ namespace GameServer
 
         public void Move(string senderName, object message)
         {
-            if (game.IsGameOver Turn(senderName))
+            int i = 0;
+            /*if (game
             {
                 string messageToSend = game.Move(message.ToString());
                 if(messageToSend!=null)
@@ -39,7 +40,7 @@ namespace GameServer
                         clients[i].Write(messageToSend);
                     }
                 }
-            }
+            } */  
         }
         public bool IsOver()
         {
