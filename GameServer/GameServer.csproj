@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game\GameCreator.cs" />
     <Compile Include="Logging\Authorization.cs" />
     <Compile Include="Clients.cs" />
     <Compile Include="Game\Game.cs" />

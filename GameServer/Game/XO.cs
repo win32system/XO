@@ -7,128 +7,62 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    public class XO: IGame
+    public class XO : IGame
     {
-        string client1Name;
-        string client2Name;
-        string turn;
+        private string[] feild;
 
-        int[,] feild = new int[3, 3];
+        private string[] combinations;
 
-        public XO(string client1Name, string client2Name)
+        public XO()
         {
-            this.client1Name = client1Name;
-            this.client2Name = client2Name;
-
-            turn = client1Name;
+            feild = new string[] { "", "", "", "", "", "", "", "", "", };
+            combinations = new string[8];
         }
 
-        public bool IsTurn(string name)
+        public void Turn(int index, string unit)
         {
-            if (name == turn)
-                return true;
-
-            return false;
+            feild[index] = unit;
         }
-        public string Move(object message)
-        {
-           
-            RequestObject info = new RequestObject("Game","Move", message);
 
-            object[] args = JsonConvert.DeserializeObject<object[]>(message.ToString());
-            int x = Convert.ToInt32(args[1]);
-            int y = Convert.ToInt32(args[2]);
-            if (feild[x, y] == 0)
+        public string[] GetMatrix()
+        {
+            return feild;
+        }
+        public string Result { set; get; }
+        public bool IsGameOver()
+        {
+            string[] combinations = new string[8];
+            combinations[0] = feild[0] + feild[1] + feild[2];
+            combinations[1] = feild[3] + feild[4] + feild[5];
+            combinations[2] = feild[6] + feild[7] + feild[8];
+            combinations[3] = feild[0] + feild[3] + feild[6];
+            combinations[4] = feild[1] + feild[4] + feild[7];
+            combinations[5] = feild[2] + feild[5] + feild[8];
+            combinations[6] = feild[0] + feild[4] + feild[8];
+            combinations[7] = feild[2] + feild[4] + feild[6];
+
+            bool draw = true;
+            for (int i = 0; i < combinations.Length; i++)
             {
-                if(turn==client1Name)
+                if (combinations[i].Length >= 3)
                 {
-                    feild[x, y] = 1;
-                    turn = client2Name;
-                    info.Args = "X";
-                    string strInfo = JsonConvert.SerializeObject(info);
-                    return strInfo;
+                    if (combinations[i].All(ch => ch == 'X') || combinations[i].All(ch => ch == '0'))
+                    {
+                        Result = combinations[i].First() + " win!";
+                        return true;
+                    }
                 }
                 else
                 {
-                    feild[x, y] = -1;
-                    turn = client1Name;
-                    info.Args = "O";
-                    string strInfo = JsonConvert.SerializeObject(info);
-                    return strInfo;
-                }
-            }
-            return null;
-        }
-
-        public bool IsOver()
-        {
-            int count = 0;
-            int fieldvalue;
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    if (feild[i, j] != 0)
-                        count++;
-                }
-            }
-            if (count == 9)
-            {
-                return true;
-            }
-
-            for (int i = 0; i < 3; i++)
-            {
-                count = 0;
-                if (feild[i, 0] == 0)
-                    continue;
-                fieldvalue = feild[i, 0];
-                for (int j = 1; j < 3; j++)
-                {
-                    if (feild[i, j] == fieldvalue)
-                        count++;
-                }
-                if (count == 2)
-                {
-                    return true;
+                    draw = false;
                 }
             }
 
-            for (int i = 0; i < 3; i++)
+            if (draw)
             {
-                count = 0;
-                if (feild[0, i] == 0)
-                    continue;
-                fieldvalue = feild[0, i];
-                for (int j = 1; j < 3; j++)
-                {
-                    if (feild[j, i] == fieldvalue)
-                        count++;
-                }
-                if (count == 2)
-                {
-                    return true;
-                }
+                Result = "Draw!";
             }
-
-            if (feild[0, 0] != 0)
-            {
-                fieldvalue = feild[0, 0];
-                if (feild[1, 1] == fieldvalue && feild[2, 2] == fieldvalue)
-                {
-                    return true;
-                }
-            }
-
-            if (feild[2, 0] != 0)
-            {
-                fieldvalue = feild[2, 0];
-                if (feild[1, 1] == fieldvalue && feild[0, 2] == fieldvalue)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return draw;
         }
     }
 }

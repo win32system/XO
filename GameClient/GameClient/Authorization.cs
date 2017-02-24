@@ -12,54 +12,45 @@ namespace GameClient
     class Authorization
     {
         public Client client;
-        RequestObject info;
+       
         
         public EventHandler LogIn;
 
         public Authorization(Client client)
         {
             this.client = client;
-            info = new RequestObject();
-            info.Module = "Auth";
+           
+            
         }
 
-        public void Dispacher(RequestObject tmpinfo)
+        public void Dispacher(RequestObject info)
         {
             switch (info.Cmd)
             {
                 case "LogIn":
-                    LogIn(tmpinfo.Args.ToString(), null);
+                    LogIn(info.Args.ToString(), null);
                     break;
             }
+        }
+        private void Send(object obj)
+        {
+            StreamWriter writer = new StreamWriter(client.netstream);
+            writer.WriteLine(JsonConvert.SerializeObject(obj));
+            writer.Flush();
         }
 
         public void SendRegistration(string name, string password)
         {
-            info.Cmd = "Registration";
-            info.Args = new object[] { name, password };
-            string strInfo = JsonConvert.SerializeObject(info);
-            StreamWriter writer = new StreamWriter(client.netstream);
-            writer.WriteLine(strInfo);
-            writer.Flush();
+            Send(new RequestObject("Auth", "Registration", new object[] { name, password }));
         }
 
         public void SendLogIn(string name, string password)
         {
-            info.Cmd = "LogIn";
-            info.Args = new object[] { name, password };
-        
-            string strInfo = JsonConvert.SerializeObject(info);
-            StreamWriter writer = new StreamWriter(client.netstream);
-            writer.WriteLine(strInfo);
-            writer.Flush();
+            Send(new RequestObject("Auth", "LogIn", new object[] { name, password }));
         }
         public void SendLogout(object sender, EventArgs e)
         {
-            info.Cmd = "LogOut";
-            string strInfo = JsonConvert.SerializeObject(info);
-            StreamWriter writer = new StreamWriter(client.netstream);
-            writer.WriteLine(strInfo);
-            writer.Flush();
+            Send(new RequestObject("Auth", "LogOut", null));
         }
     }
 }

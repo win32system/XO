@@ -13,23 +13,23 @@ namespace GameServer
         IGame game;
         public List<Client> clients;
         
-
         public Room(List<Client> clients, string gameName)
         {
+            game = GameCreator.CreateInstance(gameName);
+            if (game == null)
+                return;
+
             this.clients = clients;
-            switch(gameName)
-            {
-                case "XO":
-                    game = new XO(clients[0].name, clients[1].name);
-                    clients[0].inGame = true;
-                    clients[1].inGame = true;
-                    break;
-            }
+
+            clients[0].inGame = true;
+            clients[1].inGame = true;
+             
         }
+    
 
         public void Move(string senderName, object message)
         {
-            if (game.IsTurn(senderName))
+            if (game.IsGameOver Turn(senderName))
             {
                 string messageToSend = game.Move(message.ToString());
                 if(messageToSend!=null)
@@ -43,17 +43,14 @@ namespace GameServer
         }
         public bool IsOver()
         {
-            if (game.IsOver())
+            if (game.IsGameOver())
             {
                 for (int i = 0; i < clients.Count; i++)
                 {
                     clients[i].inGame = false;
                     clients[i].isBusy = false;
-                    RequestObject info = new RequestObject();
-                    info.Module = "Game";
-                    info.Cmd = "Over";
-                    string strInfo = JsonConvert.SerializeObject(info);
-                    clients[i].Write(strInfo);
+
+                    clients[i].Write(JsonConvert.SerializeObject(new RequestObject("Game", "Over", null)));
                 }
                 return true;
             }

@@ -76,12 +76,6 @@
     <Compile Include="UI\Game\RoomDialog.Designer.cs">
       <DependentUpon>RoomDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Game\XO.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Game\XO.Designer.cs">
-      <DependentUpon>XO.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\WaitForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,9 +99,6 @@
     </Compile>
     <EmbeddedResource Include="UI\Game\RoomDialog.resx">
       <DependentUpon>RoomDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Game\XO.resx">
-      <DependentUpon>XO.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\WaitForm.resx">
       <DependentUpon>WaitForm.cs</DependentUpon>

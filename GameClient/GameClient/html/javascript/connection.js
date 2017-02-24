@@ -8,7 +8,7 @@ window.onload = function () {
         listener(evt.data);
     };
     ws.onclose = function () {
-        alert("Connection is closed...");
+        console.log("Connection is closed...");
     };
 
     ShowAuth();

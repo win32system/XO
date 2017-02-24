@@ -19,7 +19,7 @@ namespace GameServer
             this.clients = clients;
             this.rooms = rooms;
             info = new RequestObject();
-            info.Module = "HandShake";
+            info.Module = "";
         }
 
         public void Dispacher(Client client, RequestObject info)
@@ -66,14 +66,12 @@ namespace GameServer
                 return;
             }
             clientinvited.isBusy = true;
-            info.Cmd = "Invited";
-            info.Args = new object[] { clientcreator.name, gameName };
-            
-            string strInfo = JsonConvert.SerializeObject(info);
+
+            string strInfo = JsonConvert.SerializeObject(new RequestObject("HandShake", "Invited", new object[] { clientcreator.name, gameName }));
             clientinvited.Write(strInfo);
 
-            info.Cmd = "Wait";
-            strInfo = JsonConvert.SerializeObject(info);
+            
+            strInfo = JsonConvert.SerializeObject(new RequestObject("HandShake", "Wait", "null"));
             clientcreator.Write(strInfo);
         }
 
@@ -88,11 +86,7 @@ namespace GameServer
 
             for(int i=0; i<tmpclients.Count; i++)
             {
-                info.Module = "Game";
-                info.Cmd = "Start";
-                info.Args = new object[] {rooms.rooms.Count - 1, gameName };
-             
-                string strInfo = JsonConvert.SerializeObject(info);
+                string strInfo = JsonConvert.SerializeObject(new RequestObject("Game", "Start", new object[] { rooms.rooms.Count - 1, gameName }));
                 tmpclients[i].Write(strInfo);
             }
         }
@@ -102,9 +96,7 @@ namespace GameServer
 
             creator.isBusy = false;
             invitedClient.isBusy = false;
-
-            info.Cmd = "Cancle";
-            string strInfo = JsonConvert.SerializeObject(info);
+            string strInfo = JsonConvert.SerializeObject(new RequestObject("HandShake", "Cancle",null));
             creator.Write(strInfo);
         }
     }

@@ -1,6 +1,4 @@
 
-//playersList = document.getElementById("playersList");
-
 function listener(response)
 {
     var req = JSON.parse(response);

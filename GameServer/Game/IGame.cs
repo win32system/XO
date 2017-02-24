@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    interface IGame
+    public interface IGame
     {
-        bool IsTurn(string name);
-        string Move(object message);
-        bool IsOver();
+        string Result { set; get; }
+        void Turn(int index, string unit);
+        bool IsGameOver();
+        string[] GetMatrix();
     }
 }
