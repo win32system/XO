@@ -37,7 +37,7 @@ namespace GameClient
             {
                 StreamReader reader = new StreamReader(client.netstream);
                 string message = reader.ReadLine();
-
+                Console.WriteLine(message);
                 RequestObject info = JsonConvert.DeserializeObject<RequestObject>(message);
                 switch (info.Module)
                 {

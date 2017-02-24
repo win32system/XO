@@ -40,11 +40,12 @@ namespace GameServer
             int y = Convert.ToInt32(args[2]);
             if (feild[x, y] == 0)
             {
-                if(turn==client1Name)
+                if (turn == client1Name)
                 {
                     feild[x, y] = 1;
                     turn = client2Name;
-                    info.Args = "X";
+                    info.Args = new object[] { "X", x.ToString(), y.ToString() };
+
                     string strInfo = JsonConvert.SerializeObject(info);
                     return strInfo;
                 }
@@ -52,7 +53,7 @@ namespace GameServer
                 {
                     feild[x, y] = -1;
                     turn = client1Name;
-                    info.Args = "O";
+                    info.Args = new object[] { "O", x.ToString(), y.ToString() };
                     string strInfo = JsonConvert.SerializeObject(info);
                     return strInfo;
                 }

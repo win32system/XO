@@ -51,7 +51,8 @@ namespace GameClient
         private void Start(object Args)
         {
             object[] args = JsonConvert.DeserializeObject<object[]>(Args.ToString());
-            this.gameIndex = args[0].ToString();
+
+            this.gameIndex =  args[0].ToString();
             roomdialog.Init(client, args[1].ToString());
             if (roomdialog.game is XO)
                 roomdialog.game.MouseDown += SendMoveXO;
@@ -88,7 +89,7 @@ namespace GameClient
             if(x!="" && y!="")
             {
                 info.Cmd = "Move";
-                object[] arg = new object[] { gameIndex, x, y };
+                info.Args = new object[] { gameIndex, x, y };
                 
                 string strInfo = JsonConvert.SerializeObject(info);
                 StreamWriter writer = new StreamWriter(client.netstream);
