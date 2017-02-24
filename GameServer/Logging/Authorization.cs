@@ -31,7 +31,8 @@ namespace GameServer
                     break;
                 case "LogIn":
                     res = LogIn(client, info.Args);
-                    lobby.SendNotification(res, client);
+                    if (res != "")
+                        lobby.SendNotification(res, client);
                     break;
                 case "LogOut":
                     LogOut(client);
@@ -77,7 +78,7 @@ namespace GameServer
             }
             client.name = user.name;
             client.Write(JsonConvert.SerializeObject(new RequestObject("Auth", "LogIn", user.name)));
-            return "Come in";
+            return "";
         }
         
         private void LogOut(Client client)

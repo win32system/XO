@@ -45,6 +45,7 @@ namespace GameServer
         {
             if (game.IsOver())
             {
+
                 for (int i = 0; i < clients.Count; i++)
                 {
                     clients[i].inGame = false;
@@ -52,6 +53,7 @@ namespace GameServer
                     RequestObject info = new RequestObject();
                     info.Module = "Game";
                     info.Cmd = "Over";
+                   
                     string strInfo = JsonConvert.SerializeObject(info);
                     clients[i].Write(strInfo);
                 }
