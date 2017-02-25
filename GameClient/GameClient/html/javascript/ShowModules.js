@@ -15,4 +15,12 @@ function ShowGame() {
     document.getElementById("lobby").style.display = 'none';
     document.getElementById("game").style.display = 'flex';
     document.getElementById("playersList").style.display = 'none';
+    
+    $(".gameField").val(function (index, x) { return ""; });
+}
+window.onload = function () {
+    sessionStorage.
+    if (ws !== undefined) {
+        ShowLobby();
+    }
 }
