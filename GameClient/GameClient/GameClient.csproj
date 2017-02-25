@@ -131,7 +131,8 @@
     <Content Include="html\javascript\GameXO.js" />
     <Content Include="html\javascript\Request.js" />
     <Content Include="html\javascript\ShowModules.js" />
-    <Content Include="html\Main Window XO.html" />
+    <Content Include="html\lib\jquery-3.1.1.min.js" />
+    <Content Include="html\WebClientXO.html" />
     <Content Include="html\style.css" />
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +141,7 @@
       <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

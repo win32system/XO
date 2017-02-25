@@ -26,20 +26,17 @@ namespace GameServer
             switch (info.Cmd)
             {
                 case "Registration":
-                    string res = Registration(client, info.Args);
-                    lobby.SendNotification(res, client);
+                    Registration(client, info.Args);
                     break;
                 case "LogIn":
-                    res = LogIn(client, info.Args);
-                    if (res != "")
-                        lobby.SendNotification(res, client);
+                    LogIn(client, info.Args);
                     break;
                 case "LogOut":
                     LogOut(client);
                     break;
             }
         }
-        private string Registration(Client client, object args)
+        private void Registration(Client client, object args)
         {
             object[] arg = JsonConvert.DeserializeObject<object[]>(args.ToString());
             User user = new  User(arg[0].ToString(), arg[1].ToString());
@@ -49,36 +46,43 @@ namespace GameServer
             {
                 if (record.name == user.name)
                 {
-                    return "Пользователь существует";
+                    lobby.SendNotification("Пользователь существует", client);
+                    return;
                 }
             }
             users.AddLast(user);
             AppendRecord(user);
-            return "Вы зарегистрировались";
+            lobby.SendNotification("Вы зарегистрировались", client);
         }
 
-        private string LogIn(Client client, object args)
+        private void LogIn(Client client, object args)
         {
             object[] arg = JsonConvert.DeserializeObject<object[]>(args.ToString());
             User user = new User(arg[0].ToString(), arg[1].ToString());
             if (clients.clientsList.Find(c => c.name == arg[0].ToString()) != null)
             {
-                return "С таким логином уже вошел в системе";
+                
+                lobby.SendNotification("С таким логином уже вошел в систему", client);
+                return;
             }
             LinkedList<User> users = GetPersonList();
-            if (users == null)
+            if (users != null)
             {
                 foreach (User record in users)
                 {
-                    if (record.name == user.name || record.password == user.password)
+                    if (record.name == user.name)
                     {
-                       return "Неверное имя пользоваеля или пароль";
+                       if(record.password == user.password)
+                       {
+                            client.name = user.name;
+                            client.Write(JsonConvert.SerializeObject(new RequestObject("Auth", "LogIn", user.name)));
+                            return;
+                        }
                     }
                 }
             }
-            client.name = user.name;
-            client.Write(JsonConvert.SerializeObject(new RequestObject("Auth", "LogIn", user.name)));
-            return "";
+            lobby.SendNotification("Неверное имя пользоваеля или пароль", client);
+            
         }
         
         private void LogOut(Client client)

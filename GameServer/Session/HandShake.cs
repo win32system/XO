@@ -28,7 +28,10 @@ namespace GameServer
             switch (info.Cmd)
             {
                 case "Invite":
-                    Invite(client, arg[0].ToString(), arg[1].ToString());
+                    if (arg[0] != null && arg[1] != null)
+                    {
+                        Invite(client, arg[0].ToString(), arg[1].ToString());
+                    }
                     break;
                 case "Ok":
                     Start(client, arg[0].ToString(), arg[1].ToString());
@@ -51,7 +54,7 @@ namespace GameServer
                 lobby.SendClients(clientinvited, clients.clientsList);
                 return;
             }
-            if(clientinvited==null)
+            if (clientinvited==null)
             {
                 Lobby lobby = new Lobby();
                 lobby.SendNotification("Данный пользователь уже вышел из системы", clientinvited);

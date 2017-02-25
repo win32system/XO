@@ -1,30 +1,56 @@
-function login()
-{
+var ws;
+function login() {
+    if (ws === undefined) {
+        ws = onloadsocket();
+        return;
+    }
+    auth();
+}
+function auth() {
     var login = document.getElementById("textLogin").value;
     var password = document.getElementById("textPassword").value;
-
-    if (login != "" && password != "") {
+    if (~login.indexOf(" ") || ~password.indexOf(" ")) {
+        alert("убери пробел!");
+    }
+    else if (login != "" && password != "") {
         var req = new Request("Auth", "LogIn", new Array(login, password))
-
         ws.send(JSON.stringify(req))
     }
+    
     else {
         alert("Fill all fields!");
     }
 }
 
+
+
+function sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+
+
 function logout() {
     var req = new Request("Auth", "LogOut", document.getElementById("textLogin").value);
     ws.send(JSON.stringify(req));
+    ws = undefined;
     ShowAuth();
 }
 function registr()
 {
-    var req = new Request("Auth", "Registration", new Array(
-        document.getElementById("textLogin").value,
-        document.getElementById("textPassword").value)
-        );
-    ws.send(JSON.stringify(req));
+    var login = document.getElementById("textLogin").value;
+    var password = document.getElementById("textPassword").value;
+    if (~login.indexOf(" ") || ~password.indexOf(" ")) {
+        alert("убери пробел!");
+    }
+    else if (login != "" && password != "") {
+        var req = new Request("Auth", "Registration", new Array(login, password))
+        ws.send(JSON.stringify(req))
+    }
+
+    else {
+        alert("Fill all fields!");
+    }
 }
 
 function clientsList() {

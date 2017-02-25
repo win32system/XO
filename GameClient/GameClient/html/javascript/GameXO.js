@@ -2,6 +2,7 @@
 //playersList = document.getElementById("playersList");
 var playerMove;
 var roomNumber;
+var userName;
 
 function listener(response)
 {
@@ -29,7 +30,7 @@ function listener(response)
 function HandShake(response) {
     switch (response.Cmd) {
         case "Invited":
-            var r = confirm("User" + response.Args + "wants to play with you");
+            var r = confirm("User " + response.Args[0] + " wants to play with you");
             if (r == true) {
                 goPlaying(response.Args);
             } else {
@@ -38,7 +39,7 @@ function HandShake(response) {
          
             break;
         case "Wait":
-            alert(response.Args);
+            alert("Wait");
             break;
     }
 }
@@ -101,7 +102,8 @@ function Authorization(response)
     switch(response.Cmd)
     {
         case "LogIn":
-            document.getElementById("label").innerHTML ="Your name: " + response.Args;
+            userName = "Your name: " + response.Args+ "  ";
+            document.getElementById("label").innerHTML = userName;
             ShowLobby();
             break;
     }
