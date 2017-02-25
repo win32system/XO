@@ -31,6 +31,7 @@ namespace GameServer
             {
                 for (int i = 0; i < clients.clientsList.Count; i++)
                 {
+                   
                     if (clients.clientsList[i].netStream.DataAvailable)
                     {
                         string message = clients.clientsList[i].Read();
@@ -63,6 +64,7 @@ namespace GameServer
                                 break;
                         }
                     }
+                   
                 }
             }
         }

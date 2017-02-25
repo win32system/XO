@@ -87,6 +87,7 @@ namespace GameServer
         
         private void LogOut(Client client)
         {
+          //  clients.clientsList.
             clients.Dell(client);
         }
      
