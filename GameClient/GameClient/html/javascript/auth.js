@@ -26,12 +26,16 @@ function inspection(login, password) {
     }
     return true;
 }
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
 function inspectionregist(login, password, email) {
     if (ws === undefined) {
         alert("Connection is closed...");
         return false;
     }
-    if (!~email.indexOf("@")) {
+    if (validateEmail(email) == false) {
         alert("Поле Email должно быть в формате example@exmp.com");
         return false;
     }
@@ -79,15 +83,14 @@ function registr() {
         ws.send(JSON.stringify(req));
     }
 }
+
 function Authorization(response) {
-    switch (response.Cmd) {
-        case "LogIn":
-            if (response.Args !== undefined) {
-                sessionStorage['username'] = response.Args;
-                sessionStorage['status'] = 'loggin';
-            }
-            ShowLobby();
-            break;
+    if (response.Cmd == "LogIn") {
+        if (response.Args !== undefined) {
+            sessionStorage['username'] = response.Args;
+            sessionStorage['status'] = 'loggin';
+        }
+        ShowLobby();
     }
 }
 

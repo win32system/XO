@@ -27,21 +27,11 @@ namespace GameServer
         {
             switch (info.Cmd)
             {
-                case "Registration":
-                    Registration(client, info.Args);
-                    break;
-                case "LogIn":
-                    LogIn(client, info.Args);
-                    break;
-                case "LogOut":
-                    LogOut(client);
-                    break;
-                case "Forget":
-                    ForgotPassword(client, info.Args);
-                    break;
-                case "status":
-                    LogIn(client, info.Args);
-                    break;
+                case "Registration": Registration(client, info.Args);   break;
+                case "LogIn":        LogIn(client, info.Args);          break;
+                case "LogOut":       LogOut(client);                    break;
+                case "Forget":      ForgotPassword(client, info.Args);  break;
+                case "status":      LogIn(client, info.Args);           break;
             }
         }
         private void Registration(Client client, object args)
@@ -151,28 +141,5 @@ namespace GameServer
         }
 
     }
-    
-
-
- /* public static void ForgotPassword(string login, string mail)
-        {
-            RegistredUsers registredUsers = new RegistredUsers();
-            string pass = registredUsers.GetData(login);
-            if (pass != "" && pass != null)
-            {
-                SmtpClient Smtp = new SmtpClient("smtp.gmail.com", 587);
-                Smtp.Credentials = new NetworkCredential("bestchat.helper@gmail.com", "bestchat");
-                MailMessage Message = new MailMessage();
-                Message.From = new MailAddress("bestchat.helper@gmail.com");
-                Message.To.Add(new MailAddress(mail));
-                Message.Subject = "Пароль";
-                Message.Body = "Ваш пароль : " + pass;
-                Smtp.EnableSsl = true;
-                Smtp.Send(Message);
-
-           }
-   }*/
-
-
 }
 
