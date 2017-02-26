@@ -67,11 +67,12 @@ namespace GameServer
         {
             object[] arg = JsonConvert.DeserializeObject<object[]>(args.ToString());
             User user = new User(arg[0].ToString(), arg[1].ToString(), null);
-            if (clients.clientsList.Find(c => c.name == arg[0].ToString()) != null)
+            for (int i = 0; i < clients.clientsList.Count; i++)
             {
-                
-                lobby.SendNotification("С таким логином уже вошел в систему", client);
-                return;
+                if (clients.clientsList[i].name == arg[0].ToString())
+                {
+                    RemoveClient(clients.clientsList[i]);
+                }
             }
             LinkedList<User> users = GetPersonList();
             if (users != null)

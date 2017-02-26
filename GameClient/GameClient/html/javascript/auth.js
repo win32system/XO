@@ -31,6 +31,10 @@ function inspectionregist(login, password, email) {
         alert("Connection is closed...");
         return false;
     }
+    if (!~email.indexOf("@")) {
+        alert("Поле Email должно быть в формате example@exmp.com");
+        return false;
+    }
     if (~login.indexOf(" ") || ~password.indexOf(" ") || ~email.indexOf(" ")) {
         alert("take away spaces!");
         return false;
