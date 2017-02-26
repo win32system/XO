@@ -70,7 +70,7 @@ function Authorization(response)
     {
         case "LogIn":
             if (response.Args !== undefined)
-                sessionStorage['username'] = "Your name: " + response.Args;
+                sessionStorage['username'] =  response.Args;
             ShowLobby();
             break;
     }
