@@ -1,46 +1,14 @@
-
-//playersList = document.getElementById("playersList");
 var playerMove;
 var roomNumber;
 var userName;
-
-function listener(response)
-{
-    var req = JSON.parse(response);
-    switch(req.Module)
-    {
-        case "Auth":
-            Authorization(req);
-            break;
-        case "Lobby":
-            Lobby(req);
-            break;
-        case "HandShake":
-            HandShake(req);
-            break;
-        case "Game":
-            Game(req);
-            break;
-            
-
-    }
-}
-
 
 function HandShake(response) {
     switch (response.Cmd) {
         case "Invited":
             var r = confirm("User " + response.Args[0] + " wants to play with you");
-            if (r == true) {
-                goPlaying(response.Args);
-            } else {
-               
-            }
-         
+            if (r == true)  goPlaying(response.Args);
             break;
-        case "Wait":
-            alert("Wait");
-            break;
+        case "Wait": alert("Wait"); break;
     }
 }
 
@@ -52,29 +20,11 @@ function Game(response)
             start(roomNumber);
             ShowGame();
             break;
-
-        case "Over":
-            ShowLobby();
-            break;
-        case "Move":
-            moveBtn(response.Args);
-
-            break;
-
+        case "Over": ShowLobby();  break;
+        case "Move": moveBtn(response.Args); break;
     }
 }
 
-function Authorization(response)
-{
-    switch(response.Cmd)
-    {
-        case "LogIn":
-            if (response.Args !== undefined)
-                sessionStorage['username'] =  response.Args;
-            ShowLobby();
-            break;
-    }
-}
 
 function Lobby(response)
 {
@@ -115,7 +65,6 @@ function GetSelectedPlayer() {
         }
     }
 }
-
 
 
 function OnButtonClicked(coord) {

@@ -1,13 +1,15 @@
 var ws;
 function connection() {
-    ws = sessionStorage['ws'];
     if (ws === undefined) {
         ws = new WebSocket("ws://localhost:8888");
         var clientsCount = 0;
         var roomsCount = 0;
         ws.onopen = function () {
             sessionStorage['detailPage'] = true;
-            sessionStorage['ws'] = ws;
+            if (sessionStorage['status'] === "loggin") {                
+                var req = new Request("Auth", "status", sessionStorage[username]);
+                ws.send(JSON.stringify(req))
+            }
         };
         ws.onmessage = function (evt) {
             listener(evt.data);
@@ -16,7 +18,7 @@ function connection() {
             sessionStorage['detailPage'] = undefined;
             ws = undefined;
             alert("Connection is closed...");
-        }; 
+        };
     }
 };
 function Request(Module,Cmd,Args) {
@@ -24,6 +26,7 @@ function Request(Module,Cmd,Args) {
     this.Cmd=Cmd;
     this.Args = Args;
 }
+
 window.onload = function () {
     if (sessionStorage['detailPage'] === undefined) {
         connection();
@@ -31,6 +34,15 @@ window.onload = function () {
     }
     else {
         ShowLobby();
-        ws = sessionStorage['ws'];
+    }
+}
+
+function listener(response) {
+    var req = JSON.parse(response);
+    switch (req.Module) {
+        case "Auth": Authorization(req); break;
+        case "Lobby": Lobby(req); break;
+        case "HandShake": HandShake(req); break;
+        case "Game": Game(req); break;
     }
 }

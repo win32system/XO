@@ -1,5 +1,4 @@
-﻿
-function ShowAuth() {
+﻿function ShowAuth() {
     document.getElementById("auth").style.display = 'flex';
     document.getElementById("lobby").style.display = 'none';
     document.getElementById("game").style.display = 'none';
