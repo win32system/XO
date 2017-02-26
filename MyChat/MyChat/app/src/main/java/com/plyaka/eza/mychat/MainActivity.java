@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        connectWebSocket();
+
 
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnReg = (Button) findViewById(R.id.btnReg);
@@ -60,8 +62,10 @@ private void getText() {
         {
             switch (v.getId()) {
                 case R.id.btnLogin:
-                    connectWebSocket();
+                    Request content = new Request("Auth", "LogIn",new Object[]{"2","2"});
 
+                    String json = gson.toJson(content);
+                    mWebSocketClient.send(json);
                     break;
 
                 case R.id.btnReg:
@@ -81,10 +85,8 @@ private void getText() {
     }
     private void connectWebSocket() {
         URI uri;
-
-
         try {
-            uri = new URI("ws://10.0.2.2:8888/");
+            uri = new URI("ws://192.168.51.1:8888/");
         } catch (URISyntaxException e) {
             e.printStackTrace();
             etLogin.setText(e.toString());
@@ -94,13 +96,10 @@ private void getText() {
         mWebSocketClient = new WebSocketClient(uri) {
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
-                etLogin.setText("Opened");
+                //etLogin.setText("Opened");
 
                 Log.i("Websocket", "Opened");
-                Content content = new Content("Authorization", login, "", password, "*");
-               // Request request = new Request("Auth", "Registration", new Object[]{"1", "1"});
-                String json = gson.toJson(content);
-                mWebSocketClient.send(json);
+
             }
 
             @Override
@@ -146,19 +145,5 @@ private void getText() {
             this.Args = args;
         }
     }
-    public class Content {
-        public String Action;
-        public String Login;
-        public String Role;
-        public String NameDialog;
-        public String Message;
 
-        public Content(String action, String login, String role, String nameDialog, String message) {
-            this.Action = action;
-            this.Login = login;
-            this.Role = role;
-            this.NameDialog = nameDialog;
-            this.Message = message;
-        }
-    }
 }

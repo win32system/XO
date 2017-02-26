@@ -1,5 +1,9 @@
 ﻿function logout() {
-    var req = new Request("Auth", "LogOut",  document.getElementById("textLogin").value);
+    if (ws === undefined) {
+        alert("Connection is closed...");
+        return;
+    }
+    var req = new Request("Auth", "LogOut", document.getElementById("textLogin").value);
     ws.send(JSON.stringify(req));
     sessionStorage['username'] = undefined;
     sessionStorage['password'] = undefined;
@@ -22,9 +26,17 @@ function inspection(login, password) {
     }
     return true;
 }
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
 function inspectionregist(login, password, email) {
     if (ws === undefined) {
         alert("Connection is closed...");
+        return false;
+    }
+    if (validateEmail(email) == false) {
+        alert("Поле Email должно быть в формате example@exmp.com");
         return false;
     }
     if (~login.indexOf(" ") || ~password.indexOf(" ") || ~email.indexOf(" ")) {
@@ -47,12 +59,22 @@ function login() {
         auth(login, password);
     }
 }
+
 function auth(login, password) {
+    if (ws === undefined) {
+        alert("Connection is closed...");
+        return;
+    }
     var req = new Request("Auth", "LogIn", new Array(login, password))
+    
     ws.send(JSON.stringify(req))
 }
 
 function registr() {
+    if (ws === undefined) {
+        alert("Connection is closed...");
+        return;
+    }
     var login = document.getElementById("textLogin").value;
     var password = document.getElementById("textPassword").value;
     var email = document.getElementById("textEmail").value;
@@ -61,14 +83,29 @@ function registr() {
         ws.send(JSON.stringify(req));
     }
 }
+
 function Authorization(response) {
-    switch (response.Cmd) {
-        case "LogIn":
-            if (response.Args !== undefined) {
-                sessionStorage['username'] = response.Args;
-                sessionStorage['status'] = 'loggin';
-            }
-            ShowLobby();
-            break;
+    if (response.Cmd == "LogIn") {
+        if (response.Args !== undefined) {
+            sessionStorage['username'] = response.Args;
+            sessionStorage['status'] = 'loggin';
+        }
+        ShowLobby();
     }
+}
+
+function forget(login) {
+    
+    if (ws === undefined) {
+        alert("Connection is closed...");
+        return;
+    }
+
+    if (~login.indexOf(" ") || login == "") {
+        alert("Fill Login field");
+        return;
+    }
+    var req = new Request("Auth", "Forget", login);
+    ws.send(JSON.stringify(req));
+
 }

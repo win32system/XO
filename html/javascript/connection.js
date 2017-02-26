@@ -1,7 +1,9 @@
 var ws;
 function connection() {
     if (ws === undefined) {
-        ws = new WebSocket("ws://localhost:8888");
+       
+        ws = new WebSocket("ws://127.0.0.1:8888");
+       
         var clientsCount = 0;
         var roomsCount = 0;
         ws.onopen = function () {
@@ -17,6 +19,7 @@ function connection() {
         ws.onclose = function () {
             sessionStorage['detailPage'] = undefined;
             ws = undefined;
+            ShowAuth();
             alert("Connection is closed...");
         };
     }

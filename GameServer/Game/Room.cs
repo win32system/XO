@@ -22,10 +22,17 @@ namespace GameServer
                     game = new XO(clients[0].name, clients[1].name);
                     clients[0].inGame = true;
                     clients[1].inGame = true;
-                    break;
+                    sendMessage(JsonConvert.SerializeObject(new RequestObject("Game", "Role", clients[0].name )));
+                break;
             }
         }
-
+        public void sendMessage(string messageToSend)
+        {
+            for (int i = 0; i < clients.Count; i++)
+            {
+                clients[i].Write(messageToSend);
+            }
+        }
         public void Move(string senderName, object message)
         {
             if (game.IsTurn(senderName))
@@ -33,10 +40,7 @@ namespace GameServer
                 string messageToSend = game.Move(message.ToString());
                 if(messageToSend!=null)
                 {
-                    for(int i=0; i<clients.Count; i++)
-                    {
-                        clients[i].Write(messageToSend);
-                    }
+                    sendMessage(messageToSend);
                 }
             }
         }
@@ -44,16 +48,11 @@ namespace GameServer
         {
             if (game.IsOver())
             {
-
                 for (int i = 0; i < clients.Count; i++)
                 {
                     clients[i].inGame = false;
                     clients[i].isBusy = false;
-                    RequestObject info = new RequestObject();
-                    info.Module = "Game";
-                    info.Cmd = "Over";
-                   
-                    string strInfo = JsonConvert.SerializeObject(info);
+                    string strInfo = JsonConvert.SerializeObject(new RequestObject("Game","Over", null));
                     clients[i].Write(strInfo);
                 }
                 return true;

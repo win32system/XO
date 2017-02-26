@@ -30,8 +30,8 @@ namespace GameServer
                 case "Registration": Registration(client, info.Args);   break;
                 case "LogIn":        LogIn(client, info.Args);          break;
                 case "LogOut":       LogOut(client);                    break;
-                case "Forget":      ForgotPassword(client, info.Args);  break;
-                case "status":      LogIn(client, info.Args);           break;
+                case "Forget":       ForgotPassword(client, info.Args); break;
+                case "status":       LogIn(client, info.Args);          break;
             }
         }
         private void Registration(Client client, object args)

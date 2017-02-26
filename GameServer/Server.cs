@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GameServer
@@ -15,18 +16,19 @@ namespace GameServer
       
         public Server()
         {
-            server = new TcpListener(IPAddress.Parse("127.0.0.1"), 8888);
+            server = new TcpListener(IPAddress.Parse("127.0.0.1"), 8888);//192.168.51.1
             server.Start();
             clients = new Clients();
             
             CommandDispacher dispacher = new CommandDispacher(clients);
         }
-
+        
         public void Start()
         {
             while(true)
             {
                 clients.Add(server);
+                Thread.Sleep(1000);
             }
         }
     }

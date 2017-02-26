@@ -22,9 +22,17 @@ function Game(response)
             break;
         case "Over": ShowLobby();  break;
         case "Move": moveBtn(response.Args); break;
+        case "Role": statusPlay(response.Args); break; 
     }
 }
-
+function statusPlay(args) {
+    if (args === sessionStorage["username"]) {
+        course.innerHTML = "move";
+    }
+    else {
+        course.innerHTML = "wait";
+    }
+}
 
 function Lobby(response)
 {
@@ -35,7 +43,7 @@ function Lobby(response)
             {
                 playersList.innerHTML = "";
                 var personlist = new Array(response.Args);
-                for (var i = 0; i < personlist[0].length; i++) {                  
+                for (var i = 0; i < personlist[0].length; i++) {
                     playersList.innerHTML += "<input type='radio' name='players' id='" + personlist[0][i] + "' />" + personlist[0][i] + "<br />";
                 }
             }

@@ -55,10 +55,12 @@
                 <input type="button" id="btnRefresh" value="Refresh"  onclick="clientsList()">
                 <input type="button" id="btnInvite"  value="Invite"   onclick="OnInvite()">
                 <input type="button" id="btnLogOut" value="Log out" onclick="logout()">
+             
             </div>
-        <div id="playersList" class="Lobby"> </div> <br>
-
+        <div id="playersList" class="Lobby"> </div> <br />
+        
             <div class="Room" id="game">
+            
                 <div id="namelab"></div>
                 <div>
                     <br /><br />
@@ -72,7 +74,9 @@
                     <input class="gameField" id="b8" type="button" onclick="OnButtonClicked(8)" value=" "/>
                     <input class="gameField" id="b9" type="button" onclick="OnButtonClicked(9)" value=" "/><br> 
                 </div>
+                <div id="course" class="Lobby"> </div> <br/>
             </div>
+
             <script src="lib/jquery-3.1.1.min.js"></script>
             <script src="javascript/connection.js"></script>
             <script src="javascript/auth.js"></script>

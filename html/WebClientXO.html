@@ -19,7 +19,7 @@
                                 <input type="text" id="textLogin" />
                             </td>
                             <td>
-                                <input type="button" value="Log in" id="btnLogIn" onclick="login()" />
+                                <input type="button" value="Log in" maxlength="50" id="btnLogIn" onclick="login()" />
                             </td>
                         </tr>
 
@@ -28,10 +28,10 @@
                                 <label>Password</label>
                             </td>
                             <td>
-                                <input type="text" size="20" maxlength="50" id="textPassword" />
+                                <input type="password" size="20" maxlength="50" id="textPassword" />
                             </td>
                             <td>
-                                <input type="button" value="Registration" id="btnReg" onclick="registr()" />
+                                <input type="button" value="Registration" id="btnReg"  onclick="registr()" />
                             </td>
                         </tr>
                         <tr>
@@ -42,7 +42,7 @@
                                 <input type="text" size="20" maxlength="50" id="textEmail" />
                             </td>
                             <td>
-                                <input type="button" value="Forget Password?" id="btnForget" onclick="registr()" />
+                                <input type="button" value="Forget Password?" id="btnForget" onclick="forget(textLogin.value)" />
                             </td>
                         </tr>
                     </table>             

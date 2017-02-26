@@ -31,9 +31,7 @@ namespace GameServer
         }
         void Move(Room room, Client client, object args)
         {
-
             room.Move(client.name, args.ToString());
-
             if (room.IsOver())
             {
                 rooms.Remove(room);

@@ -21,6 +21,7 @@ namespace GameServer
             this.client2Name = client2Name;
 
             turn = client1Name;
+         
         }
 
         public bool IsTurn(string name)
@@ -32,31 +33,25 @@ namespace GameServer
         }
         public string Move(object message)
         {
-           
-            RequestObject info = new RequestObject("Game","Move", message);
-
             object[] args = JsonConvert.DeserializeObject<object[]>(message.ToString());
             int x = Convert.ToInt32(args[1]);
             int y = Convert.ToInt32(args[2]);
             if (feild[x, y] == 0)
             {
+                string tmp;
                 if (turn == client1Name)
                 {
                     feild[x, y] = 1;
                     turn = client2Name;
-                    info.Args = new object[] { "X", x.ToString(), y.ToString() };
-
-                    string strInfo = JsonConvert.SerializeObject(info);
-                    return strInfo;
+                    tmp = "X";
                 }
                 else
                 {
                     feild[x, y] = -1;
                     turn = client1Name;
-                    info.Args = new object[] { "O", x.ToString(), y.ToString() };
-                    string strInfo = JsonConvert.SerializeObject(info);
-                    return strInfo;
+                    tmp = "O";
                 }
+                return JsonConvert.SerializeObject(new RequestObject("Game", "Move", new object[] { tmp, x.ToString(), y.ToString() }));
             }
             return null;
         }
