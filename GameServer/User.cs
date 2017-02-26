@@ -18,11 +18,5 @@ namespace GameServer
             this.password = password;
             this.email = email;
         }
-
-     /*   public User(string name, string password)
-        {
-            this.name = name;
-            this.password = password;
-        }*/
     }
 }

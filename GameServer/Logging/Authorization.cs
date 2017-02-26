@@ -39,8 +39,9 @@ namespace GameServer
                 case "Forget":
                     ForgotPassword(client, info.Args);
                     break;
-
-
+                case "status":
+                    LogIn(client, info.Args);
+                    break;
             }
         }
         private void Registration(Client client, object args)
@@ -66,12 +67,15 @@ namespace GameServer
         {
             object[] arg = JsonConvert.DeserializeObject<object[]>(args.ToString());
             User user = new User(arg[0].ToString(), arg[1].ToString(), null);
-            if (clients.clientsList.Find(c => c.name == arg[0].ToString()) != null)
-            {
-                
-                lobby.SendNotification("С таким логином уже вошел в систему", client);
-                return;
-            }
+          
+                for (int i= 0; i<clients.clientsList.Count; i++)
+                {
+                    if (clients.clientsList[i].name == arg[0].ToString())
+                    {
+                        RemoveClient(clients.clientsList[i]);
+                    }
+                }
+           
             LinkedList<User> users = GetPersonList();
             if (users != null)
             {
@@ -93,6 +97,10 @@ namespace GameServer
         }
         
         private void LogOut(Client client)
+        {
+            client.name = null;
+        }
+        private void RemoveClient(Client client)
         {
             clients.Dell(client);
         }

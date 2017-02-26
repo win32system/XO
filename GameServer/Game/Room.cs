@@ -12,7 +12,6 @@ namespace GameServer
     {
         IGame game;
         public List<Client> clients;
-        
 
         public Room(List<Client> clients, string gameName)
         {
