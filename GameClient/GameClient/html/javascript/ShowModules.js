@@ -11,14 +11,14 @@ function ShowLobby() {
     document.getElementById("game").style.display = 'none';
     document.getElementById("playersList").style.display = 'flex';
     
-    document.getElementById("label").innerHTML = sessionStorage['username'];
+    document.getElementById("label").innerHTML ="Your name: "+ sessionStorage['username'];
+    $(".gameField").val(function (index, x) { return " "; });
 }
 function ShowGame() {
     document.getElementById("auth").style.display = 'none';
     document.getElementById("lobby").style.display = 'none';
     document.getElementById("game").style.display = 'flex';
     document.getElementById("playersList").style.display = 'none';
-    
-    $(".gameField").val(function (index, x) { return ""; });
+    document.getElementById("namelab").innerHTML = "Your name: " + sessionStorage['username'];
 }
 
