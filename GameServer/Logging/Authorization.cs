@@ -13,7 +13,7 @@ namespace GameServer
 {
     class Authorization
     {
-       
+
         private Clients clients;
         private Lobby lobby = new Lobby();
         private static string AuthFolder = "Users.json";
@@ -46,7 +46,7 @@ namespace GameServer
         private void Registration(Client client, object args)
         {
             object[] arg = JsonConvert.DeserializeObject<object[]>(args.ToString());
-            User user = new  User(arg[0].ToString(), arg[1].ToString(), arg[2].ToString());
+            User user = new User(arg[0].ToString(), arg[1].ToString(), arg[2].ToString());
             LinkedList<User> users = GetPersonList();
 
             foreach (User record in users)
@@ -68,7 +68,7 @@ namespace GameServer
             User user = new User(arg[0].ToString(), arg[1].ToString(), null);
             if (clients.clientsList.Find(c => c.name == arg[0].ToString()) != null)
             {
-                
+
                 lobby.SendNotification("С таким логином уже вошел в систему", client);
                 return;
             }
@@ -79,8 +79,8 @@ namespace GameServer
                 {
                     if (record.name == user.name)
                     {
-                       if(record.password == user.password)
-                       {
+                        if (record.password == user.password)
+                        {
                             client.name = user.name;
                             client.Write(JsonConvert.SerializeObject(new RequestObject("Auth", "LogIn", user.name)));
                             return;
@@ -89,14 +89,14 @@ namespace GameServer
                 }
             }
             lobby.SendNotification("Неверное имя пользоваеля или пароль", client);
-            
+
         }
-        
+
         private void LogOut(Client client)
         {
             clients.Dell(client);
         }
-     
+
         private LinkedList<User> GetPersonList()
         {
             LinkedList<User> records = new LinkedList<User>();
@@ -106,10 +106,10 @@ namespace GameServer
             }
             string[] json = File.ReadAllLines(AuthFolder);
             if (json.Length == 0)
-                return records; 
+                return records;
 
             int length = json.Length;
-            for(int i=0; i < length; i++)
+            for (int i = 0; i < length; i++)
             {
                 User rec = JsonConvert.DeserializeObject<User>(json[i].ToString());
                 records.AddLast(rec);
@@ -122,23 +122,30 @@ namespace GameServer
             File.AppendAllLines(AuthFolder, new string[] { JsonConvert.SerializeObject(user) });
         }
 
-        public static void ForgotPassword(Client client, Object args)
+        public void ForgotPassword(Client client, Object args)
         {
-            //RegistredUsers registredUsers = new RegistredUsers();
-            //string pass = registredUsers.GetData(login);
-            //if (pass != "" && pass != null)
-            //{
-            //    SmtpClient Smtp = new SmtpClient("smtp.gmail.com", 587);
-            //    Smtp.Credentials = new NetworkCredential("bestchat.helper@gmail.com", "bestchat");
-            //    MailMessage Message = new MailMessage();
-            //    Message.From = new MailAddress("bestchat.helper@gmail.com");
-            //    Message.To.Add(new MailAddress(mail));
-            //    Message.Subject = "Пароль";
-            //    Message.Body = "Ваш пароль : " + pass;
-            //    Smtp.EnableSsl = true;
-            //    Smtp.Send(Message);
+            object[] arg = JsonConvert.DeserializeObject<object[]>(args.ToString());
 
-            //}
+            LinkedList<User> users = GetPersonList();
+            string user = arg[0].ToString();
+
+            foreach (User record in users)
+            {
+                if (record.name == user)
+                {
+                    SmtpClient Smtp = new SmtpClient("smtp.gmail.com", 587);
+                    Smtp.Credentials = new NetworkCredential("gameXO.helpe@gmail.com", "gameXO");
+                    MailMessage Message = new MailMessage();
+                    Message.From = new MailAddress("gameXO.helpe@gmail.com");
+                    Message.To.Add(new MailAddress(record.email));
+                    Message.Subject = "Пароль";
+                    Message.Body = "Ваш пароль : " + record.password;
+                    Smtp.EnableSsl = true;
+                    Smtp.Send(Message);
+
+                }
+
+            }
         }
 
     }

@@ -7,7 +7,7 @@
 
 function registr() {
     if (ws === undefined) {
-        alert("Connection is closed...");
+        alert("Соединение прервано...");
         return;
     }
     var login = document.getElementById("textLogin").value;
@@ -17,19 +17,23 @@ function registr() {
     if (~login.indexOf(" ") || ~password.indexOf(" ") || ~email.indexOf(" ")) {
         alert("убери пробел!");
     }
+
+    if (!~email.indexOf("@")) {
+        alert("Поле Email должно быть в формате example@exmp.com");
+    }
     else if (login != "" && password != "" && email != "") {
         var req = new Request("Auth", "Registration", new Array(login, password, email))
         ws.send(JSON.stringify(req))
     }
 
     else {
-        alert("Fill all fields!");
+        alert("Заполни все поля");
     }
 }
 
 function login() {
     if (ws === undefined) {
-        alert("Connection is closed...");
+        alert("Соединение прервано...");
         return;
     }
     auth();
@@ -46,11 +50,15 @@ function auth() {
     }
 
     else {
-        alert("Fill all fields!");
+        alert("Заполни все поля");
     }
 }
 
 function forget(args) {
-    var req = new Request("Auth", "Forget", document.getElementById("textLogin").value);
+    var login = document.getElementById("textLogin").value;
+    if (~login.indexOf(" ") || login == "") {
+        alert("Заполни поле Login");
+    }
+    var req = new Request("Auth", "Forget",  new Array(login));
     ws.send(JSON.stringify(req));
 }
