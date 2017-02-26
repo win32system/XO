@@ -7,7 +7,7 @@ function connection() {
         ws.onopen = function () {
             sessionStorage['detailPage'] = true;
             if (sessionStorage['status'] === "loggin") {                
-                var req = new Request("Auth", "status", sessionStorage[username]);
+                var req = new Request("Auth", "status", new Array(sessionStorage["username"], sessionStorage["password"]));
                 ws.send(JSON.stringify(req))
             }
         };
@@ -28,13 +28,13 @@ function Request(Module,Cmd,Args) {
 }
 
 window.onload = function () {
-    if (sessionStorage['detailPage'] === undefined) {
-        connection();
-        ShowAuth();
-    }
-    else {
+    if (sessionStorage['status'] === "loggin") {
         ShowLobby();
     }
+    else if (sessionStorage['status'] === "logout") {
+        ShowAuth();
+    }
+    connection();
 }
 
 function listener(response) {

@@ -2,10 +2,10 @@
     var req = new Request("Auth", "LogOut",  document.getElementById("textLogin").value);
     ws.send(JSON.stringify(req));
     sessionStorage['username'] = undefined;
+    sessionStorage['password'] = undefined;
     sessionStorage['status'] = undefined;
     ShowAuth();
 }
-
 
 function inspection(login, password) {
     if (ws === undefined) {
@@ -40,9 +40,10 @@ function inspectionregist(login, password, email) {
 function login() {
     var login = document.getElementById("textLogin").value;
     var password = document.getElementById("textPassword").value;
-    
+    connection();
     if(inspection(login, password)==true){
         sessionStorage['username'] = login;
+        sessionStorage['password'] = password;
         auth(login, password);
     }
 }

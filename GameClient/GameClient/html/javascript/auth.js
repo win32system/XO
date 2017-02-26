@@ -1,5 +1,9 @@
 ﻿function logout() {
-    var req = new Request("Auth", "LogOut",  document.getElementById("textLogin").value);
+    if (ws === undefined) {
+        alert("Connection is closed...");
+        return;
+    }
+    var req = new Request("Auth", "LogOut", document.getElementById("textLogin").value);
     ws.send(JSON.stringify(req));
     sessionStorage['username'] = undefined;
     sessionStorage['password'] = undefined;
@@ -47,12 +51,22 @@ function login() {
         auth(login, password);
     }
 }
+
 function auth(login, password) {
+    if (ws === undefined) {
+        alert("Connection is closed...");
+        return;
+    }
     var req = new Request("Auth", "LogIn", new Array(login, password))
+    
     ws.send(JSON.stringify(req))
 }
 
 function registr() {
+    if (ws === undefined) {
+        alert("Connection is closed...");
+        return;
+    }
     var login = document.getElementById("textLogin").value;
     var password = document.getElementById("textPassword").value;
     var email = document.getElementById("textEmail").value;
@@ -72,3 +86,4 @@ function Authorization(response) {
             break;
     }
 }
+

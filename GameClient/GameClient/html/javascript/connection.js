@@ -17,6 +17,7 @@ function connection() {
         ws.onclose = function () {
             sessionStorage['detailPage'] = undefined;
             ws = undefined;
+            ShowAuth();
             alert("Connection is closed...");
         };
     }
