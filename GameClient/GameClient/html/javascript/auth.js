@@ -12,11 +12,13 @@ function registr() {
     }
     var login = document.getElementById("textLogin").value;
     var password = document.getElementById("textPassword").value;
-    if (~login.indexOf(" ") || ~password.indexOf(" ")) {
+    var email = document.getElementById("textEmail").value;
+
+    if (~login.indexOf(" ") || ~password.indexOf(" ") || ~email.indexOf(" ")) {
         alert("убери пробел!");
     }
-    else if (login != "" && password != "") {
-        var req = new Request("Auth", "Registration", new Array(login, password))
+    else if (login != "" && password != "" && email != "") {
+        var req = new Request("Auth", "Registration", new Array(login, password, email))
         ws.send(JSON.stringify(req))
     }
 
@@ -46,4 +48,9 @@ function auth() {
     else {
         alert("Fill all fields!");
     }
+}
+
+function forget(args) {
+    var req = new Request("Auth", "Forget", document.getElementById("textLogin").value);
+    ws.send(JSON.stringify(req));
 }

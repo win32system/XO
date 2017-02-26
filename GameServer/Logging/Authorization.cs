@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Net;
 
 namespace GameServer
 {
@@ -34,12 +36,17 @@ namespace GameServer
                 case "LogOut":
                     LogOut(client);
                     break;
+                case "Forget":
+                    ForgotPassword(client, info.Args);
+                    break;
+
+
             }
         }
         private void Registration(Client client, object args)
         {
             object[] arg = JsonConvert.DeserializeObject<object[]>(args.ToString());
-            User user = new  User(arg[0].ToString(), arg[1].ToString());
+            User user = new  User(arg[0].ToString(), arg[1].ToString(), arg[2].ToString());
             LinkedList<User> users = GetPersonList();
 
             foreach (User record in users)
@@ -58,7 +65,7 @@ namespace GameServer
         private void LogIn(Client client, object args)
         {
             object[] arg = JsonConvert.DeserializeObject<object[]>(args.ToString());
-            User user = new User(arg[0].ToString(), arg[1].ToString());
+            User user = new User(arg[0].ToString(), arg[1].ToString(), null);
             if (clients.clientsList.Find(c => c.name == arg[0].ToString()) != null)
             {
                 
@@ -87,7 +94,6 @@ namespace GameServer
         
         private void LogOut(Client client)
         {
-          //  clients.clientsList.
             clients.Dell(client);
         }
      
@@ -99,12 +105,13 @@ namespace GameServer
                 return records;
             }
             string[] json = File.ReadAllLines(AuthFolder);
-            if (json[0] == "") return records;
+            if (json.Length == 0)
+                return records; 
 
             int length = json.Length;
             for(int i=0; i < length; i++)
             {
-                User rec = JsonConvert.DeserializeObject<User>(json[i]);
+                User rec = JsonConvert.DeserializeObject<User>(json[i].ToString());
                 records.AddLast(rec);
             }
 
@@ -114,6 +121,49 @@ namespace GameServer
         {
             File.AppendAllLines(AuthFolder, new string[] { JsonConvert.SerializeObject(user) });
         }
-      
+
+        public static void ForgotPassword(Client client, Object args)
+        {
+            //RegistredUsers registredUsers = new RegistredUsers();
+            //string pass = registredUsers.GetData(login);
+            //if (pass != "" && pass != null)
+            //{
+            //    SmtpClient Smtp = new SmtpClient("smtp.gmail.com", 587);
+            //    Smtp.Credentials = new NetworkCredential("bestchat.helper@gmail.com", "bestchat");
+            //    MailMessage Message = new MailMessage();
+            //    Message.From = new MailAddress("bestchat.helper@gmail.com");
+            //    Message.To.Add(new MailAddress(mail));
+            //    Message.Subject = "Пароль";
+            //    Message.Body = "Ваш пароль : " + pass;
+            //    Smtp.EnableSsl = true;
+            //    Smtp.Send(Message);
+
+            //}
+        }
+
     }
+    
+
+
+ /* public static void ForgotPassword(string login, string mail)
+        {
+            RegistredUsers registredUsers = new RegistredUsers();
+            string pass = registredUsers.GetData(login);
+            if (pass != "" && pass != null)
+            {
+                SmtpClient Smtp = new SmtpClient("smtp.gmail.com", 587);
+                Smtp.Credentials = new NetworkCredential("bestchat.helper@gmail.com", "bestchat");
+                MailMessage Message = new MailMessage();
+                Message.From = new MailAddress("bestchat.helper@gmail.com");
+                Message.To.Add(new MailAddress(mail));
+                Message.Subject = "Пароль";
+                Message.Body = "Ваш пароль : " + pass;
+                Smtp.EnableSsl = true;
+                Smtp.Send(Message);
+
+           }
+   }*/
+
+
 }
+
