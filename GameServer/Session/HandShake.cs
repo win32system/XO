@@ -12,14 +12,12 @@ namespace GameServer
     {
         private Clients clients { get; set; }
         Rooms rooms { get; set; }
-        RequestObject info { get; set; }
-
+    
         public HandShake(Clients clients, Rooms rooms)
         {
             this.clients = clients;
             this.rooms = rooms;
-            info = new RequestObject();
-            info.Module = "HandShake";
+          
         }
 
         public void Dispacher(Client client, RequestObject info)
@@ -69,13 +67,13 @@ namespace GameServer
                 return;
             }
             clientinvited.isBusy = true;
-            info.Cmd = "Invited";
-            info.Args = new object[] { clientcreator.name, gameName };
-            
-            string strInfo = JsonConvert.SerializeObject(info);
+            LogProvider.AppendRecord(string.Format("{0} invited client [{1}] vs game [{2}]", DateTime.Now.ToString(), clientcreator.name,gameName));
+            RequestObject info = new RequestObject("HandShake", "Invited", new object[] { clientcreator.name, gameName });
+            string strInfo = JsonConvert.SerializeObject(info);            
             clientinvited.Write(strInfo);
 
-            info.Cmd = "Wait";
+            LogProvider.AppendRecord(string.Format("{0} Wait [{1}]", DateTime.Now.ToString(), clientcreator.name));
+            info = new RequestObject("HandShake", "Wait", null);
             strInfo = JsonConvert.SerializeObject(info);
             clientcreator.Write(strInfo);
         }
@@ -91,24 +89,18 @@ namespace GameServer
 
             for(int i=0; i<tmpclients.Count; i++)
             {
-                info.Module = "Game";
-                info.Cmd = "Start";
-                info.Args = new object[] {rooms.rooms.Count - 1, gameName };
-             
-                string strInfo = JsonConvert.SerializeObject(info);
-                tmpclients[i].Write(strInfo);
+                LogProvider.AppendRecord(string.Format("{0} Start [{1}]", DateTime.Now.ToString(), tmpclients[i].name));
+                string info = JsonConvert.SerializeObject(new RequestObject("Game", "Start", new object[] { rooms.rooms.Count - 1, gameName }));
+                tmpclients[i].Write(info);
             }
         }
         private void Cancle(Client invitedClient, string creatorName)
         {
             Client creator = clients.clientsList.Find(c => c.name == creatorName);
-
             creator.isBusy = false;
             invitedClient.isBusy = false;
-
-            info.Cmd = "Cancle";
-            string strInfo = JsonConvert.SerializeObject(info);
-            creator.Write(strInfo);
+            LogProvider.AppendRecord(string.Format("{0} handShake Cancle [{1}]", DateTime.Now.ToString(), creatorName));
+            creator.Write(JsonConvert.SerializeObject(new RequestObject("HandShake", "Cancle", null)));
         }
     }
 }

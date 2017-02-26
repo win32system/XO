@@ -51,6 +51,7 @@ namespace GameServer
                     turn = client1Name;
                     tmp = "O";
                 }
+                LogProvider.AppendRecord(string.Format("{0}  user [{1}] - {2} [{3}/{4}] ", DateTime.Now.ToString(), client1Name, tmp, x.ToString(), y.ToString()));
                 return JsonConvert.SerializeObject(new RequestObject("Game", "Move", new object[] { tmp, x.ToString(), y.ToString() }));
             }
             return null;

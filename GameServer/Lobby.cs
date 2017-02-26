@@ -28,14 +28,12 @@ namespace GameServer
                     continue;
                  str.Add(item.name);
             }
-
             client.Write(JsonConvert.SerializeObject(new RequestObject("Lobby", "refreshClients", str)));
         }
         public void SendNotification(string notification, Client client)
         {
             RequestObject info = new RequestObject("Lobby", "Notification", notification);
-            string strInfo = JsonConvert.SerializeObject(info);
-            client.Write(strInfo);
+            client.Write(JsonConvert.SerializeObject(info));
         }
     }
 }

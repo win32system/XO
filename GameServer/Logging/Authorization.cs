@@ -50,6 +50,7 @@ namespace GameServer
             }
             users.AddLast(user);
             AppendRecord(user);
+            LogProvider.AppendRecord(string.Format("{0} registered new user [{1}]", DateTime.Now.ToString(), user.name));
             lobby.SendNotification("Вы зарегистрировались", client);
         }
 
@@ -74,6 +75,7 @@ namespace GameServer
                         if (record.password == user.password)
                         {
                             client.name = user.name;
+                            LogProvider.AppendRecord(string.Format("{0} loggin user [{1}]", DateTime.Now.ToString(), user.name));
                             client.Write(JsonConvert.SerializeObject(new RequestObject("Auth", "LogIn", user.name)));
                             return;
                         }
@@ -81,7 +83,6 @@ namespace GameServer
                 }
             }
             lobby.SendNotification("Неверное имя пользоваеля или пароль", client);
-
         }
 
         private void LogOut(Client client)
@@ -125,6 +126,7 @@ namespace GameServer
             {
                 if (record.name == args.ToString())
                 {
+                    LogProvider.AppendRecord(string.Format("{0} recovery password user [{1}]", DateTime.Now.ToString(), record.name));
                     SmtpClient Smtp = new SmtpClient("smtp.gmail.com", 587);
                     Smtp.Credentials = new NetworkCredential("gameXO.helpe@gmail.com", "ekaterina18");
                     MailMessage Message = new MailMessage();
