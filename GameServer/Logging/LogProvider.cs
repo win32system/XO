@@ -17,7 +17,7 @@ namespace GameServer
          }
          public static void AppendRecord(string record)
          {
-             File.AppendAllLines(LogFolder + DateTime.Today.Date.ToString(), new string[] { DateTime.Now.ToShortTimeString() + record});
+             File.AppendAllLines(LogFolder + "Log.txt", new string[] { DateTime.Now.ToShortTimeString() + record});
          }
     }
 }
