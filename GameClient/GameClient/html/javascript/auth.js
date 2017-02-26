@@ -91,3 +91,18 @@ function Authorization(response) {
     }
 }
 
+function forget(login) {
+    
+    if (ws === undefined) {
+        alert("Connection is closed...");
+        return;
+    }
+
+    if (~login.indexOf(" ") || login == "") {
+        alert("Fill Login field");
+        return;
+    }
+    var req = new Request("Auth", "Forget", login);
+    ws.send(JSON.stringify(req));
+
+}

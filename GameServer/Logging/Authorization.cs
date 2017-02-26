@@ -130,14 +130,10 @@ namespace GameServer
 
         public void ForgotPassword(Client client, Object args)
         {
-            object[] arg = JsonConvert.DeserializeObject<object[]>(args.ToString());
-
             LinkedList<User> users = GetPersonList();
-            string user = arg[0].ToString();
-
             foreach (User record in users)
             {
-                if (record.name == user)
+                if (record.name == args.ToString())
                 {
                     SmtpClient Smtp = new SmtpClient("smtp.gmail.com", 587);
                     Smtp.Credentials = new NetworkCredential("gameXO.helpe@gmail.com", "gameXO");
