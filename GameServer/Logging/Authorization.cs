@@ -13,7 +13,7 @@ namespace GameServer
 {
     class Authorization
     {
-
+       
         private Clients clients;
         private Lobby lobby = new Lobby();
         private static string AuthFolder = "Users.json";
@@ -39,8 +39,9 @@ namespace GameServer
                 case "Forget":
                     ForgotPassword(client, info.Args);
                     break;
-
-
+                case "status":
+                    LogIn(client, info.Args);
+                    break;
             }
         }
         private void Registration(Client client, object args)
@@ -68,7 +69,7 @@ namespace GameServer
             User user = new User(arg[0].ToString(), arg[1].ToString(), null);
             if (clients.clientsList.Find(c => c.name == arg[0].ToString()) != null)
             {
-
+                
                 lobby.SendNotification("С таким логином уже вошел в систему", client);
                 return;
             }
@@ -93,6 +94,10 @@ namespace GameServer
         }
 
         private void LogOut(Client client)
+        {
+            client.name = null;
+        }
+        private void RemoveClient(Client client)
         {
             clients.Dell(client);
         }
