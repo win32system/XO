@@ -136,7 +136,7 @@ namespace GameServer
                 if (record.name == args.ToString())
                 {
                     SmtpClient Smtp = new SmtpClient("smtp.gmail.com", 587);
-                    Smtp.Credentials = new NetworkCredential("gameXO.helpe@gmail.com", "gameXO");
+                    Smtp.Credentials = new NetworkCredential("gameXO.helpe@gmail.com", "ekaterina18");
                     MailMessage Message = new MailMessage();
                     Message.From = new MailAddress("gameXO.helpe@gmail.com");
                     Message.To.Add(new MailAddress(record.email));
