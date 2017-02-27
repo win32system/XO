@@ -1,10 +1,24 @@
 ﻿function Authorization(response) {
-    if (response.Cmd == "LogIn") {
-        if (response.Args !== undefined) {
-            sessionStorage['username'] = response.Args;
-            sessionStorage['status'] = 'loggin';
-        }
-        ShowLobby();
+    switch (response.Cmd) {
+        case "LogIn":
+            if (response.Args !== undefined) {
+                sessionStorage['username'] = response.Args;
+                sessionStorage['status'] = 'loggin';
+            }
+            ShowLobby();
+            break;
+        case "Forgot": Forgot(response.Args); break;
+    }
+}
+
+function Forgot(args) {
+    switch(args){
+        case "Success":
+            alert("password sent by email");
+            break;
+        case "Error":
+            alert("No such user exists. Please make sure that you entered your login");
+            break;
     }
 }
 

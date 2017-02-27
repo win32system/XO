@@ -19,15 +19,13 @@ namespace GameClient
         public RoomDialog roomdialog;
         Client client;
         string gameIndex;
-
-        RequestObject info;
+   
 
         public Game(Client client)
         {
             roomdialog = new RoomDialog();
             this.client = client;
-            info = new RequestObject();
-            info.Module = "Game";
+          
         }
 
         public void Dispacher(RequestObject info)
@@ -51,7 +49,6 @@ namespace GameClient
         private void Start(object Args)
         {
             object[] args = JsonConvert.DeserializeObject<object[]>(Args.ToString());
-
             this.gameIndex =  args[0].ToString();
             roomdialog.Init(client, args[1].ToString());
             if (roomdialog.game is XO)
@@ -88,11 +85,9 @@ namespace GameClient
                 x = "2";
             if(x!="" && y!="")
             {
-                info.Cmd = "Move";
-                info.Args = new object[] { gameIndex, x, y };
-                string strInfo = JsonConvert.SerializeObject(info);
+                RequestObject info = new RequestObject("Game", "Move", new object[] { gameIndex, x, y });
                 StreamWriter writer = new StreamWriter(client.netstream);
-                writer.WriteLine(strInfo);
+                writer.WriteLine(JsonConvert.SerializeObject(info));
                 writer.Flush();
             }
         }

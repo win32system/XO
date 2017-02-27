@@ -17,7 +17,7 @@ namespace GameServer
         public static Thread tr;
         public Server()
         {
-            server = new TcpListener(IPAddress.Parse("192.168.1.100"), 8888);//192.168.51.1
+            server = new TcpListener(IPAddress.Parse("127.0.0.1"), 8888);//192.168.51.1
             server.Start();
             clients = new Clients();
             

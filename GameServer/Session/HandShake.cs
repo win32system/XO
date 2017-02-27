@@ -48,21 +48,21 @@ namespace GameServer
             if(clientinvited.inGame)
             {
                 Lobby lobby = new Lobby();
-                lobby.SendNotification("Данный пользователь уже находится в игре", clientinvited);
+                lobby.SendNotification("This user is already in the game", clientinvited);
                 lobby.SendClients(clientinvited, clients.clientsList);
                 return;
             }
             if (clientinvited==null)
             {
                 Lobby lobby = new Lobby();
-                lobby.SendNotification("Данный пользователь уже вышел из системы", clientinvited);
+                lobby.SendNotification("This user has already logged out", clientinvited);
                 lobby.SendClients(clientinvited, clients.clientsList);
                 return;
             }
             if(clientinvited.isBusy)
             {
                 Lobby lobby = new Lobby();
-                lobby.SendNotification("Данный пользователь сейчас занят", clientcreator);
+                lobby.SendNotification("This user is busy", clientcreator);
                 clientcreator.isBusy = false;
                 return;
             }

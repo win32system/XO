@@ -51,7 +51,7 @@ namespace GameServer
             users.AddLast(user);
             AppendRecord(user);
             LogProvider.AppendRecord(string.Format("{0} registered new user [{1}]", DateTime.Now.ToString(), user.name));
-            lobby.SendNotification("Вы зарегистрировались", client);
+            lobby.SendNotification("You have registered", client);
         }
 
         private void LogIn(Client client, object args)
@@ -82,7 +82,7 @@ namespace GameServer
                     }
                 }
             }
-            lobby.SendNotification("Неверное имя пользоваеля или пароль", client);
+            lobby.SendNotification("Please check that you have entered your login and password correctly", client);
         }
 
         private void LogOut(Client client)
@@ -108,8 +108,7 @@ namespace GameServer
             int length = json.Length;
             for (int i = 0; i < length; i++)
             {
-                User rec = JsonConvert.DeserializeObject<User>(json[i].ToString());
-                records.AddLast(rec);
+                records.AddLast(JsonConvert.DeserializeObject<User>(json[i].ToString()));
             }
 
             return records;
@@ -128,19 +127,25 @@ namespace GameServer
                 {
                     LogProvider.AppendRecord(string.Format("{0} recovery password user [{1}]", DateTime.Now.ToString(), record.name));
                     SmtpClient Smtp = new SmtpClient("smtp.gmail.com", 587);
-                    Smtp.Credentials = new NetworkCredential("gameXO.helpe@gmail.com", "ekaterina18");
+                    Smtp.Credentials = new NetworkCredential("gameXO.helpe@gmail.com", "ekaterina18");  
                     MailMessage Message = new MailMessage();
                     Message.From = new MailAddress("gameXO.helpe@gmail.com");
                     Message.To.Add(new MailAddress(record.email));
-                    Message.Subject = "Пароль";
-                    Message.Body = "Ваш пароль : " + record.password;
+                    Message.Subject = "Password";
+                    Message.Body = "your password : " + record.password;
                     Smtp.EnableSsl = true;
                     Smtp.Send(Message);
 
+                    LogProvider.AppendRecord(string.Format("{0} Forgot user [{1}]", DateTime.Now.ToString(), client.name));
+                    client.Write(JsonConvert.SerializeObject(new RequestObject("Auth", "Forgot", "Success")));
+                    return;
                 }
-
             }
+            client.Write(JsonConvert.SerializeObject(new RequestObject("Auth", "Forgot", "Error")));
+            
         }
+        //api gmail    auth-160013
+        //API key      AIzaSyASYCMt5dkiQw-5jetuwWN7EZCnnDcD-wo
 
     }
 }
