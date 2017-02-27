@@ -2,13 +2,13 @@ var ws;
 function connection() {
     if (ws === undefined) {
        
-        ws = new WebSocket("ws://127.0.0.1:8888");
+        ws = new WebSocket("ws://192.168.1.100:8888");
        
         var clientsCount = 0;
         var roomsCount = 0;
         ws.onopen = function () {
             sessionStorage['detailPage'] = true;
-            if (sessionStorage['status'] === "loggin") {                
+            if (sessionStorage['status'] === "loggin"){
                 var req = new Request("Auth", "status", new Array(sessionStorage["username"], sessionStorage["password"]));
                 ws.send(JSON.stringify(req));
             }

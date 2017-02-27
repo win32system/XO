@@ -11,5 +11,6 @@ namespace GameServer
         bool IsTurn(string name);
         string Move(object message);
         bool IsOver();
+        string Result { get; set; }
     }
 }

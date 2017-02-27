@@ -22,7 +22,8 @@ namespace GameServer
                     game = new XO(clients[0].name, clients[1].name);
                     clients[0].inGame = true;
                     clients[1].inGame = true;
-                    LogProvider.AppendRecord(string.Format("{0}  user [{1}] - X/0 ", clients[0].name));
+                    LogProvider.AppendRecord(string.Format("{0}  user [{1}] - X/0 ", DateTime.Now.ToString(), clients[0].name));
+                    LogProvider.AppendRecord(string.Format("{0}  user [{1}] - X/0 ", DateTime.Now.ToString(), clients[1].name));
                     sendMessage(JsonConvert.SerializeObject(new RequestObject("Game", "Role", clients[0].name )));
                 break;
             }
@@ -39,7 +40,7 @@ namespace GameServer
             if (game.IsTurn(senderName))
             {
                 string messageToSend = game.Move(message.ToString());
-                if(messageToSend!=null)
+                if(messageToSend != null)
                 {
                     sendMessage(messageToSend);
                 }
@@ -53,8 +54,8 @@ namespace GameServer
                 {
                     clients[i].inGame = false;
                     clients[i].isBusy = false;
-                    LogProvider.AppendRecord(string.Format("{0}  Game Over [{1}]", clients[0].name));
-                    string strInfo = JsonConvert.SerializeObject(new RequestObject("Game","Over", null));
+                    LogProvider.AppendRecord(string.Format("{0}  Game Over [{1}]", DateTime.Now.ToString(), clients[0].name));
+                    string strInfo = JsonConvert.SerializeObject(new RequestObject("Game","Over", game.Result));
                     clients[i].Write(strInfo);
                 }
                 return true;

@@ -55,6 +55,7 @@ namespace GameServer
 
         public void Dell(Client client)
         {
+            LogProvider.AppendRecord(string.Format("{0}  Remove client [{1}]", DateTime.Now.ToString(), client.name));
             clientsList.Remove(client);
         }
     }

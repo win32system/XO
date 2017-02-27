@@ -33,7 +33,7 @@ namespace GameServer
         {
             room.Move(client.name, args.ToString());
             if (room.IsOver())
-            {
+            {  
                 rooms.Remove(room);
             }
         }

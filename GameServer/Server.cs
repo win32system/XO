@@ -13,7 +13,8 @@ namespace GameServer
     {
         TcpListener server { get; set; }
         Clients clients { get; set; }
-      
+        public static bool go = true;
+        public static Thread tr;
         public Server()
         {
             server = new TcpListener(IPAddress.Parse("192.168.1.100"), 8888);//192.168.51.1
@@ -25,7 +26,7 @@ namespace GameServer
         
         public void Start()
         {
-            while(true)
+            while(go)
             {
                 clients.Add(server);
                 Thread.Sleep(1000);

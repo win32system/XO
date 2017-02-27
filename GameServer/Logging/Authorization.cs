@@ -90,7 +90,7 @@ namespace GameServer
             client.name = null;
         }
         private void RemoveClient(Client client)
-        {
+        {   
             clients.Dell(client);
         }
 

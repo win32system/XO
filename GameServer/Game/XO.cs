@@ -12,16 +12,16 @@ namespace GameServer
         string client1Name;
         string client2Name;
         string turn;
-
-        int[,] feild = new int[3, 3];
+        string[] combinations = new string[8];
+        string[] matrix = new string[] { "", "", "", "", "", "", "", "", "" };
+       
+        public string Result{ get; set; }
 
         public XO(string client1Name, string client2Name)
         {
             this.client1Name = client1Name;
             this.client2Name = client2Name;
-
             turn = client1Name;
-         
         }
 
         public bool IsTurn(string name)
@@ -31,101 +31,63 @@ namespace GameServer
 
             return false;
         }
-        public string Move(object message)
+        public string Move(object info)
         {
-            object[] args = JsonConvert.DeserializeObject<object[]>(message.ToString());
-            int x = Convert.ToInt32(args[1]);
-            int y = Convert.ToInt32(args[2]);
-            if (feild[x, y] == 0)
+            object[] args = JsonConvert.DeserializeObject<object[]>(info.ToString());
+            
+            if (turn == args[3].ToString())
             {
-                string tmp;
-                if (turn == client1Name)
+                int x = Convert.ToInt32(args[2]);
+                if (matrix[x] == "")
                 {
-                    feild[x, y] = 1;
-                    turn = client2Name;
-                    tmp = "X";
+                    string tmp = args[1].ToString();
+                    matrix[x] = tmp;
+                    if (args[3].ToString() == client1Name)
+                        turn = client2Name;
+                    else
+                        turn = client1Name;
+
+                    LogProvider.AppendRecord(string.Format("{0}  user [{1}] - {2} [{3}]", DateTime.Now.ToString(), turn, tmp, x.ToString()));
+                    return JsonConvert.SerializeObject(new RequestObject("Game", "Move", new object[] { tmp, x.ToString() }));
                 }
-                else
-                {
-                    feild[x, y] = -1;
-                    turn = client1Name;
-                    tmp = "O";
-                }
-                LogProvider.AppendRecord(string.Format("{0}  user [{1}] - {2} [{3}/{4}] ", DateTime.Now.ToString(), client1Name, tmp, x.ToString(), y.ToString()));
-                return JsonConvert.SerializeObject(new RequestObject("Game", "Move", new object[] { tmp, x.ToString(), y.ToString() }));
             }
             return null;
         }
-
+        
         public bool IsOver()
         {
-            int count = 0;
-            int fieldvalue;
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    if (feild[i, j] != 0)
-                        count++;
-                }
-            }
-            if (count == 9)
-            {
-                return true;
-            }
+            combinations[0] = (matrix[0] + matrix[1] + matrix[2]);
+            combinations[1] = (matrix[3] + matrix[4] + matrix[5]);
+            combinations[2] = (matrix[6] + matrix[7] + matrix[8]);
+            combinations[3] = (matrix[0] + matrix[3] + matrix[6]);
+            combinations[4] = (matrix[1] + matrix[4] + matrix[7]);
+            combinations[5] = (matrix[2] + matrix[5] + matrix[8]);
+            combinations[6] = (matrix[0] + matrix[4] + matrix[8]);
+            combinations[7] = (matrix[2] + matrix[4] + matrix[6]);
 
-            for (int i = 0; i < 3; i++)
+            bool draw = true;
+
+            for (int i = 0; i < combinations.Length; i++)
             {
-                count = 0;
-                if (feild[i, 0] == 0)
+                if (combinations[i].Length < 3)
+                {
+                    draw = false;
                     continue;
-                fieldvalue = feild[i, 0];
-                for (int j = 1; j < 3; j++)
-                {
-                    if (feild[i, j] == fieldvalue)
-                        count++;
                 }
-                if (count == 2)
+
+                if (combinations[i].All(ch => { return ch == 'X'; })
+                   || combinations[i].All(ch => { return ch == 'O'; }))
                 {
+                    Result = combinations[i][0] + " win!";
                     return true;
                 }
             }
 
-            for (int i = 0; i < 3; i++)
+            if (draw)
             {
-                count = 0;
-                if (feild[0, i] == 0)
-                    continue;
-                fieldvalue = feild[0, i];
-                for (int j = 1; j < 3; j++)
-                {
-                    if (feild[j, i] == fieldvalue)
-                        count++;
-                }
-                if (count == 2)
-                {
-                    return true;
-                }
+                Result = "Draw!";
             }
-
-            if (feild[0, 0] != 0)
-            {
-                fieldvalue = feild[0, 0];
-                if (feild[1, 1] == fieldvalue && feild[2, 2] == fieldvalue)
-                {
-                    return true;
-                }
-            }
-
-            if (feild[2, 0] != 0)
-            {
-                fieldvalue = feild[2, 0];
-                if (feild[1, 1] == fieldvalue && feild[0, 2] == fieldvalue)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return draw;
         }
     }
 }
