@@ -57,7 +57,7 @@
     <Compile Include="Game\Room.cs" />
     <Compile Include="Lobby.cs" />
     <Compile Include="Logging\LogProvider.cs" />
-    <Compile Include="Session\Rooms.cs" />
+    <Compile Include="Game\Rooms.cs" />
     <Compile Include="Session\HandShake.cs" />
     <Compile Include="Connection\Client.cs" />
     <Compile Include="CommandDispacher.cs" />

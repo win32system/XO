@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +29,19 @@ namespace GameServer
             }
             rooms.Remove(room);
         }
-
+        public void SendMessage(Room room, object[] args)
+        {
+            for (int i = 0; i < room.clients.Count; i++)
+            {
+                if (room.clients[i].client != args[1])
+                {
+                    StreamWriter sw = new StreamWriter(room.clients[i].client.GetStream());
+                    sw.WriteLine(JsonConvert.SerializeObject(new RequestObject("Game", "Over", "game over user " + args[1])));
+                    sw.Flush();
+                    return;
+                }
+            }
+                
+        }
     }
 }

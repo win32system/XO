@@ -1,10 +1,33 @@
-﻿function logout() {
-    if (ws === undefined) {
-        alert("Connection is closed...");
-        return;
+﻿function Authorization(response) {
+    switch (response.Cmd) {
+        case "LogIn":
+            if (response.Args !== undefined) {
+                sessionStorage['username'] = response.Args;
+                sessionStorage['status'] = 'loggin';
+            }
+            ShowLobby();
+            break;
+        case "Forgot": Forgot(response.Args); break;
     }
-    var req = new Request("Auth", "LogOut", document.getElementById("textLogin").value);
-    ws.send(JSON.stringify(req));
+}
+
+function Forgot(args) {
+    switch(args){
+        case "Success":
+            alert("password sent by email");
+            break;
+        case "Error":
+            alert("No such user exists. Please make sure that you entered your login");
+            break;
+    }
+}
+
+function auth(login, password) {
+    sendMessage(new Request("Auth", "LogIn", new Array(login, password)));
+}
+
+function logout() {
+    sendMessage(new Request("Auth", "LogOut", document.getElementById("textLogin").value));
     sessionStorage['username'] = undefined;
     sessionStorage['password'] = undefined;
     sessionStorage['status'] = undefined;
@@ -26,6 +49,7 @@ function inspection(login, password) {
     }
     return true;
 }
+
 function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
@@ -60,52 +84,25 @@ function login() {
     }
 }
 
-function auth(login, password) {
-    if (ws === undefined) {
-        alert("Connection is closed...");
-        return;
-    }
-    var req = new Request("Auth", "LogIn", new Array(login, password))
-    
-    ws.send(JSON.stringify(req))
-}
-
 function registr() {
-    if (ws === undefined) {
-        alert("Connection is closed...");
-        return;
-    }
+   
     var login = document.getElementById("textLogin").value;
     var password = document.getElementById("textPassword").value;
     var email = document.getElementById("textEmail").value;
     if (inspectionregist(login, password, email) == true){
         var req = new Request("Auth", "Registration", new Array(login, password, email));
-        ws.send(JSON.stringify(req));
-    }
-}
-
-function Authorization(response) {
-    if (response.Cmd == "LogIn") {
-        if (response.Args !== undefined) {
-            sessionStorage['username'] = response.Args;
-            sessionStorage['status'] = 'loggin';
-        }
-        ShowLobby();
+        sendMessage(req);
     }
 }
 
 function forget(login) {
     
-    if (ws === undefined) {
-        alert("Connection is closed...");
-        return;
-    }
-
     if (~login.indexOf(" ") || login == "") {
         alert("Fill Login field");
         return;
     }
     var req = new Request("Auth", "Forget", login);
-    ws.send(JSON.stringify(req));
+    sendMessage(req);
+    
 
 }

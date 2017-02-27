@@ -20,11 +20,22 @@ function Game(response)
             start(roomNumber);
             ShowGame();
             break;
-        case "Over": ShowLobby();  break;
+        case "Over": alert(response.Args); ShowLobby();  break;
         case "Move": moveBtn(response.Args); break;
+        case "Role": statusPlay(response.Args); break; 
     }
 }
-
+var gamestorage;
+function statusPlay(args) {
+    if (args === sessionStorage["username"]) {
+        gamestorage = "X";
+        course.innerHTML = "play: "+gamestorage+" go";
+    }
+    else {
+        gamestorage = "O";
+        course.innerHTML = "play: " + gamestorage+" wait";
+    }
+}
 
 function Lobby(response)
 {
@@ -35,7 +46,7 @@ function Lobby(response)
             {
                 playersList.innerHTML = "";
                 var personlist = new Array(response.Args);
-                for (var i = 0; i < personlist[0].length; i++) {                  
+                for (var i = 0; i < personlist[0].length; i++) {
                     playersList.innerHTML += "<input type='radio' name='players' id='" + personlist[0][i] + "' />" + personlist[0][i] + "<br />";
                 }
             }
@@ -66,85 +77,45 @@ function GetSelectedPlayer() {
     }
 }
 
-
 function OnButtonClicked(coord) {
-
-    switch (coord) {
-        case 1:
-
-            move(new Array(roomNumber[0], 0, 0));
-
-            break;
-        case 2:
-
-            move(new Array(roomNumber[0], 0, 1));
-
-            break;
-        case 3:
-
-            move(new Array(roomNumber[0], 0, 2));
-
-            break;
-        case 4:
-            move(new Array(roomNumber[0], 1, 0));
-
-            break;
-        case 5:
-            move(new Array(roomNumber[0], 1, 1));
-
-            break;
-        case 6:
-            move(new Array(roomNumber[0], 1, 2));
-
-            break;
-        case 7:
-            move(new Array(roomNumber[0], 2, 0));
-
-            break;
-        case 8:
-            move(new Array(roomNumber[0], 2, 1));
-
-            break;
-        case 9:
-            move(new Array(roomNumber[0], 2, 2));
-
-            break;
-        default:
-            return;
-    }
-
+    move(new Array(roomNumber[0],gamestorage, coord, sessionStorage['username']));
 }
 
 function moveBtn(args) {
-
-    if (args[1] == 0 && args[2] == 0) {
+    if (gamestorage === args[0]) {
+        course.innerHTML = "play: " + gamestorage + " wait";
+    }
+    else {
+        course.innerHTML = "play: " + gamestorage + " go";
+    }
+    
+    if (args[1] == 0) {
+        b0.value = args[0];
+    }
+    else if (args[1] == 1) {
         b1.value = args[0];
     }
-    else if (args[1] == 0 && args[2] == 1) {
+    else if (args[1] == 2) {
         b2.value = args[0];
     }
-    else if (args[1] == 0 && args[2] == 2) {
+    else if (args[1] == 3) {
         b3.value = args[0];
     }
-    else if (args[1] == 1 && args[2] == 0) {
+    else if (args[1] == 4) {
         b4.value = args[0];
     }
-    else if (args[1] == 1 && args[2] == 1) {
+    else if (args[1] == 5) {
         b5.value = args[0];
     }
-    else if (args[1] == 1 && args[2] == 2) {
+    else if (args[1] == 6) {
         b6.value = args[0];
     }
-    else if (args[1] == 2 && args[2] == 0) {
+    else if (args[1] == 7) {
         b7.value = args[0];
     }
-    else if (args[1] == 2 && args[2] == 1) {
+    else if (args[1] == 8) {
         b8.value = args[0];
     }
-    else if (args[1] == 2 && args[2] == 2) {
-        b9.value = args[0];
-    }
-
-
+    
     console.log(args);
 }

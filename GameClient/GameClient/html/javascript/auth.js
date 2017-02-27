@@ -14,7 +14,7 @@
 function Forgot(args) {
     switch(args){
         case "Success":
-            alert("password sent by email");
+            alert("password sent by email")
             break;
         case "Error":
             alert("No such user exists. Please make sure that you entered your login");

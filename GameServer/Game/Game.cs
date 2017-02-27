@@ -26,8 +26,16 @@ namespace GameServer
                 case "Move":
                     Move(room, client, info.Args);
                     break;
+                case "Remove":
+                    Remove(room, args);
+                    break;
             }
             
+        }
+        void Remove(Room room, object[] args)
+        {
+            rooms.SendMessage(room, args);
+            rooms.Remove(room);   
         }
         void Move(Room room, Client client, object args)
         {

@@ -18,7 +18,10 @@ function move(args) {
     var req = new Request("Game", "Move", args);
     sendMessage(req);
 }
-
+function move(args) {
+    var req = new Request("Game", "Remove", args);
+    sendMessage(req);
+}
 function start(args) {
     var req = new Request("Game", "Start", args);
     sendMessage(req);
