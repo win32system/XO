@@ -56,3 +56,11 @@ function sendMessage(info) {
     }
     ws.send(JSON.stringify(info));
 }
+
+/*window.onbeforeunload = function (e) {
+    if (document.getElementById("game").style.display === 'flex')
+        move(new Array(roomNumber[0], sessionStorage['username']));
+    //sendMessage(new Request("Game", "Registration", new Array(login, password, email)));
+
+  //  logout();
+};*/
