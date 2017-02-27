@@ -49,3 +49,10 @@ function listener(response) {
         case "Game": Game(req); break;
     }
 }
+function sendMessage(info) { 
+    if (ws === undefined) {
+        alert("Connection is closed...");
+        return;
+    }
+    ws.send(JSON.stringify(info));
+}

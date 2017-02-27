@@ -53,7 +53,7 @@ namespace GameServer
                 {
                     clients[i].inGame = false;
                     clients[i].isBusy = false;
-                    LogProvider.AppendRecord(string.Format("{0}  Game Over [{1}] ", clients[i].name));
+                    LogProvider.AppendRecord(string.Format("{0}  Game Over [{1}]", clients[0].name));
                     string strInfo = JsonConvert.SerializeObject(new RequestObject("Game","Over", null));
                     clients[i].Write(strInfo);
                 }

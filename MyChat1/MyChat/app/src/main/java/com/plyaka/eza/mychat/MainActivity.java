@@ -2,20 +2,12 @@ package com.plyaka.eza.mychat;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import com.google.gson.Gson;
-
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
@@ -184,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 //192.168.0.108
         try {
-            uri = new URI("ws://192.168.0.108:8888/");//"ws://:8080/");/*10.0.2.2*/ //
+            uri = new URI("ws://192.168.1.100:8888/");//"ws://:8080/");/*10.0.2.2*/ //
         } catch (URISyntaxException e) {
             e.printStackTrace();
             etLogin.setText(e.toString());
@@ -321,31 +313,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void moveBtn(Object[] args) {
 
-        if (args[1] == 0 && args[2] == 0) {
+        if ((Integer)args[1] == 0 && (Integer)args[2] == 0) {
             bt1.setText(args[0].toString());
         }
-        else if (args[1] == 0 && args[2] == 1) {
+        else if ((Integer)args[1] == 0 && (Integer)args[2] == 1) {
             bt2.setText(args[0].toString());
         }
-        else if (args[1] == 0 && args[2] == 2) {
+        else if ((Integer)args[1] == 0 && (Integer)args[2] == 2) {
             bt3.setText(args[0].toString());
         }
-        else if (args[1] == 1 && args[2] == 0) {
+        else if ((Integer)args[1] == 1 && (Integer)args[2] == 0) {
             bt4.setText(args[0].toString());
         }
-        else if (args[1] == 1 && args[2] == 1) {
+        else if ((Integer)args[1] == 1 && (Integer)args[2] == 1) {
             bt5.setText(args[0].toString());
         }
-        else if (args[1] == 1 && args[2] == 2) {
+        else if ((Integer)args[1] == 1 && (Integer)args[2] == 2) {
             bt6.setText(args[0].toString());
         }
-        else if (args[1] == 2 && args[2] == 0) {
+        else if ((Integer)args[1] == 2 && (Integer)args[2] == 0) {
             bt7.setText(args[0].toString());
         }
-        else if (args[1] == 2 && args[2] == 1) {
+        else if ((Integer)args[1] == 2 && (Integer)args[2] == 1) {
             bt8.setText(args[0].toString());
         }
-        else if (args[1] == 2 && args[2] == 2) {
+        else if ((Integer)args[1] == 2 && (Integer)args[2] == 2) {
             bt9.setText(args[0].toString());
         }
 
